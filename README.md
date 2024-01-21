@@ -8,8 +8,8 @@ This README provides information on setting up and running a React app that util
 
 Make sure you have the following installed on your machine:
 
-- [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/)
+- [Node.js](https://nodejs.org/) (v16.17.1.)
+- [npm](https://www.npmjs.com/) (npm: '8.15.0')
 
 ## Getting Started
 
