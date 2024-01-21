@@ -1,4 +1,4 @@
-# React App README
+# Scoreboard README
 
 ## Overview
 
