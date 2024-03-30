@@ -23,7 +23,11 @@ const Banner =  styled.div`
 `
 const BannerTitle = styled.div`
   color: #FFCF99;
-  font-size: 80px;
+  font-size: 60px;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  display: flex;
 `
 const ButtonContainer = styled.div`
   padding-top: 50px;
@@ -52,7 +56,7 @@ const Home = () => {
       <Announcement/>
       <Banner>
         <BannerTitle>
-          Welcome to Scoreboard
+          Welcome <br/> to <br/> Scoreboard
         </BannerTitle>
       </Banner>
       <ButtonContainer>
@@ -61,7 +65,7 @@ const Home = () => {
             Login
           </Button>
         </Link>
-        <Link to="/register">
+        <Link to="/checkpoints">
           <Button className='checkpoints'>
             Check Points
           </Button>

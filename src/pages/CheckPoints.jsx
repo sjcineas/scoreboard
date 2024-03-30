@@ -17,6 +17,15 @@ const ContentBox = styled.div`
     flex-direction:column;
     align-items: center;
 `
+const ContentBox1 = styled.div`
+    margin-top: 10px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: black;
+    color: white;
+`
 const DetailedContentBox = styled.div`
     width: 80%;
     display: flex;
@@ -36,17 +45,35 @@ const PointsBox = styled.div`
     flex:1;
     text-align: center;
 `
+const NameBox1 = styled.div`
+    flex:1;
+    text-align: center;
+`
+const IdBox1 = styled.div`
+    flex:1;
+    text-align: center;
+`
+const PointsBox1 = styled.div`
+    flex:1;
+    text-align: center;
+`
+
 const CheckPoints = () => {
   return (
     
     <Container>
         <Announcement/>
         <ContentBox>
+            <ContentBox1>
+                <NameBox1><h1> Name</h1></NameBox1>
+                <IdBox1><h1>Id</h1></IdBox1>
+                <PointsBox1><h1>Points</h1></PointsBox1>
+            </ContentBox1>
             {sampleData.map((item) =>(
                 <DetailedContentBox key={item.id}>
-                    <NameBox>{item.name}</NameBox>
-                    <IdBox>{item.id}</IdBox>
-                    <PointsBox>{item.points}</PointsBox>
+                        <NameBox>{item.name}</NameBox>
+                        <IdBox>{item.id}</IdBox>
+                        <PointsBox>{item.points}</PointsBox>
                 </DetailedContentBox>
             )
             )}

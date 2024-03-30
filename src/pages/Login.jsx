@@ -8,7 +8,7 @@ import { WidthFull } from '@mui/icons-material';
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     position: absolute;
     background-color: #92140C;
     justify-content: center;
@@ -17,8 +17,8 @@ const Container = styled.div`
 
 const LoginContainer = styled.div`
     margin-top: 150px;
-    width: 30%;
-    height: 60%;
+    width: auto;
+    height: auto;
     position: absolute;
     background-color: #FFF8F0;
     border-radius: 20%;
@@ -61,7 +61,7 @@ const SubmitButton = styled.button`
     color: #FFF8F0;
     font-weight: bold;
     cursor: pointer;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     &:hover {
         background-color: #92140C;
   }
