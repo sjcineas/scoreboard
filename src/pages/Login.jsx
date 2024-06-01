@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Announcement from '../components/Announcement';
 import { WidthFull } from '@mui/icons-material';
+import { autocompleteClasses } from '@mui/material';
 
 
 
@@ -91,7 +92,7 @@ const SubmitButton = styled.button`
     cursor: pointer;
     margin-bottom: 25px;
     &:hover {
-        background-color: #794040;
+    background-color: #92140C;
   }
 `
 
@@ -104,7 +105,7 @@ const SignUpButton = styled.button`
     font-weight: bold;
     cursor: pointer;
     &:hover {
-        background-color: #794040;
+    background-color: #92140C;
   }
 `
 const NewForm = styled.form`

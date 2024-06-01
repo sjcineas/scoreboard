@@ -70,10 +70,13 @@ const Home = () => {
             Check Points
           </Button>
         </Link>
-        
+        <Link to="/MembershipForm">
+          <Button className='MembershipForm'>
+            Membership Form
+          </Button>
+        </Link>
       </ButtonContainer>
     </Container>
-    
 
   )
 }

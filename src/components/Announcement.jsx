@@ -34,5 +34,4 @@ const Announcement = () => {
     </Container>
   )
 }
-
 export default Announcement
