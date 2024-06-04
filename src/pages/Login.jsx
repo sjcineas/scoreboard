@@ -50,7 +50,7 @@ const LoginContainer = styled.div`
     align-items: center; /* Center items horizontally */
     //border: solid 5px;
 `
-const LoginTitle = styled.div`
+const PageTitle = styled.div`
     font-size: 50px;
     //font-family:
     text-align: center;
@@ -135,16 +135,16 @@ const Login = () => {
                 <ImageContainer>
                     <Image src="https://www.nsbe.org/getmedia/9e92a6e6-21d0-4be7-bda9-88b26865694f/1.png" alt=""></Image>
                 </ImageContainer>
-                <LoginTitle>
+                <PageTitle>
                     Login to Scoreboard
-                </LoginTitle>
+                </PageTitle>
             </BannerContainer>
         </Banner>
         <BottomOfContainer>
         <LoginContainer>
-            {/* <LoginTitle>
+            {/* <PageTitle>
                 Login
-            </LoginTitle> */}
+            </PageTitle> */}
             <InputContainer>
                 <NewForm>
                     <Inputs placeholder='Username' type='text'></Inputs>

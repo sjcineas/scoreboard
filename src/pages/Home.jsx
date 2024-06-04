@@ -6,7 +6,7 @@ import Announcement from '../components/Announcement';
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     position: absolute;
     background-color: #FFCF99;
 `
@@ -39,15 +39,16 @@ const Button = styled.button`
   border-radius: 10%;
   color: #111D4A;
   padding: 20px;
-  margin-left: 70px;
-  margin-right: 70px;
   color: white;
   background-color: #1E1E24;
   border: none;
-
   &:hover {
     cursor: pointer;
   }
+`
+const ButtonBox = styled.div`
+  margin-left: 70px;
+  margin-right: 70px;
 `
 const Home = () => {
   return (
@@ -60,16 +61,20 @@ const Home = () => {
         </BannerTitle>
       </Banner>
       <ButtonContainer>
-        <Link to="/login">
-          <Button className="signin">
-            Login
-          </Button>
+        <ButtonBox>
+          <Link to="/login">
+            <Button className="signin">
+              Login
+            </Button>
+          </Link>
+        </ButtonBox>
+        <ButtonBox>
+          <Link to="/checkpoints">
+            <Button className='checkpoints'>
+              Check Points
+            </Button>
         </Link>
-        <Link to="/checkpoints">
-          <Button className='checkpoints'>
-            Check Points
-          </Button>
-        </Link>
+        </ButtonBox>
         <Link to="/MembershipForm">
           <Button className='MembershipForm'>
             Membership Form

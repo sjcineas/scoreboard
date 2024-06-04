@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import Announcement from '../components/Announcement'
-
+import axios from 'axios'; // Ensure you have axios installed (npm install axios)
 
 const Container = styled.div`
     width: 100%;
@@ -64,6 +64,28 @@ const SubmitButton = styled.button`
 
 
 const Register = () => {
+    const [formData, setFormData] = useState({
+        orgAcronym: '',
+        orgCode: '',
+        username: '',
+        password: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:5038/register', formData);
+            console.log('Registration Successful:', response);
+        } catch (error) {
+            console.error('Registration Failed:', error);
+        }
+    };
+
+
     return (
      <Container>
         <Announcement/>
@@ -72,11 +94,12 @@ const Register = () => {
                 Register
             </RegisterTitle>
             <InputContainer>
-                <form>
-                    <Inputs placeholder='Student Organization Acronym' type='text'></Inputs>
-                    <Inputs placeholder='Username' type='text'></Inputs>
-                    <Inputs placeholder='Password' type='password'></Inputs>
-                    <SubmitButton>Sign Up</SubmitButton>
+                <form onSubmit={handleSubmit}>
+                    <Inputs name='orgAcronym' placeholder='Student Organization Acronym' type='text' value={formData.orgAcronym} onChange={handleChange} />
+                    <Inputs name='orgCode' placeholder='Student Organization Code' type='text' value={formData.orgCode} onChange={handleChange} />
+                    <Inputs name='username' placeholder='Username' type='text' value={formData.username} onChange={handleChange} />
+                    <Inputs name='password' placeholder='Password' type='password' value={formData.password} onChange={handleChange} />
+                    <SubmitButton type='submit'>Sign Up</SubmitButton>
                 </form>
             </InputContainer>
         </RegisterContainer>

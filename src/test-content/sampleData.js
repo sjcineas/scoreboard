@@ -5,8 +5,18 @@ export const sampleData= [
         points: 20
     },
     {
-        id: 555,
+        id: 5555,
         name: "jordan",
         points: 5
+    },
+    {
+        id: 9999,
+        name: "summer",
+        points: 50
+    },
+    {
+        id: 777,
+        name: "Niah",
+        points: 30
     }
 ]
