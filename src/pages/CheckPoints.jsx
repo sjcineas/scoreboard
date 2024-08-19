@@ -22,6 +22,7 @@ const BannerContainer =  styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 10%;
 `
 const PageTitle = styled.div`
     font-size: 50px;
@@ -29,14 +30,24 @@ const PageTitle = styled.div`
     text-align: center;
     padding-top: 20px;
     padding-bottom: 30px;
-    width: 98%;
+    width: 65%;
     color: white;
     font-weight: bold;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 `
+const Image = styled.img`
+    width: 100px;
+    height: 100px;
 
+`
+const ImageContainer = styled.div`
+    padding:1%;
+    width: 35%;
+    justify-content: left;
+
+`
 const ContentBox = styled.div`
     margin-top: 50px;
     width: 100%;
@@ -87,14 +98,7 @@ const PointsBox1 = styled.div`
     flex:1;
     text-align: center;
 `
-const Image = styled.img`
-    height: 120px;
-    width: 120px;
-`
-const ImageContainer = styled.div`
-    width: 2%;
-    
-`
+
 const CheckPoints = () => {
   return (
     
@@ -103,7 +107,7 @@ const CheckPoints = () => {
         <Banner>
             <BannerContainer>
                 <ImageContainer>
-                    <Image src="https://www.nsbe.org/getmedia/9e92a6e6-21d0-4be7-bda9-88b26865694f/1.png" alt=""></Image>
+                    <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                 </ImageContainer>
                 <PageTitle>
                     Member Stat Sheet

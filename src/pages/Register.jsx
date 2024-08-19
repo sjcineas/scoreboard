@@ -1,42 +1,74 @@
-import React, { useState } from 'react';
+import React from 'react'
 import styled from 'styled-components'
-import Announcement from '../components/Announcement'
-import axios from 'axios'; // Ensure you have axios installed (npm install axios)
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import Announcement from '../components/Announcement';
+import { WidthFull } from '@mui/icons-material';
+import { autocompleteClasses } from '@mui/material';
+
+
 
 const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     position: absolute;
     background-color: #92140C;
     justify-content: center;
+    display: block;
+`
+const BottomOfContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: white;
+    justify-content: center;
     display: flex;
+`
+const Banner =  styled.div`
+    height: 20%;
+    width: 100%;
+    display: flex;
+    //background-color: white;
+    align-items: center;
+    justify-content: center;
+`
+const BannerContainer =  styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 `
 
 const RegisterContainer = styled.div`
-    margin-top: 150px;
-    width: 30%;
+    margin-top: 20px;
+    width: 35%;
     height: 60%;
     position: absolute;
-    background-color: #FFF8F0;
+    //background-color: #FFF8F0;
     border-radius: 20%;
     display: flex; /* Change display to flex */
     flex-direction: column; /* Align items in a column */
     align-items: center; /* Center items horizontally */
-    border: solid 5px;
+    //border: solid 5px;
 `
-const RegisterTitle = styled.div`
+const PageTitle = styled.div`
     font-size: 50px;
+    //font-family:
     text-align: center;
     padding-top: 20px;
     padding-bottom: 30px;
-    width: 100%;
-
+    width:58%;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: left;
 `
 
 const InputContainer = styled.div`
     width: 70%;
     height: auto;
     align-items: center;
+    justify-content: center;
     display: flex; /* Change display to flex */
     flex-direction: column; /* Align items in a column */`
 
@@ -46,7 +78,8 @@ const Inputs = styled.input`
     border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
+    background-color: #F4F4F4;
 
 `
 const SubmitButton = styled.button`
@@ -57,52 +90,74 @@ const SubmitButton = styled.button`
     color: #FFF8F0;
     font-weight: bold;
     cursor: pointer;
+    margin-bottom: 25px;
     &:hover {
-        background-color: #92140C;
+    background-color: #92140C;
   }
 `
 
+const SignUpButton = styled.button`
+    border-radius: 4px;
+    height: 30px;
+    width: 100%;
+    background-color: #1E1E24;
+    color: #FFF8F0;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover {
+    background-color: #92140C;
+  }
+`
+const NewForm = styled.form`
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+`
+const Image = styled.img`
+    width: 100px;
+    height: 100px;
+
+`
+const ImageContainer = styled.div`
+    padding:1%;
+    width: 42%;
+    justify-content: left;
+
+`
 
 const Register = () => {
-    const [formData, setFormData] = useState({
-        orgAcronym: '',
-        orgCode: '',
-        username: '',
-        password: ''
-    });
-
-    const handleChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:5038/register', formData);
-            console.log('Registration Successful:', response);
-        } catch (error) {
-            console.error('Registration Failed:', error);
-        }
-    };
-
-
     return (
      <Container>
         <Announcement/>
+        <Banner>
+        <BannerContainer>
+                <ImageContainer>
+                    <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
+                </ImageContainer>
+                <PageTitle>
+                    Sign Up
+                </PageTitle>
+            </BannerContainer>
+        </Banner>
+        <BottomOfContainer>
         <RegisterContainer>
-            <RegisterTitle>
-                Register
-            </RegisterTitle>
+            {/* <PageTitle>
+                Login
+            </PageTitle> */}
             <InputContainer>
-                <form onSubmit={handleSubmit}>
-                    <Inputs name='orgAcronym' placeholder='Student Organization Acronym' type='text' value={formData.orgAcronym} onChange={handleChange} />
-                    <Inputs name='orgCode' placeholder='Student Organization Code' type='text' value={formData.orgCode} onChange={handleChange} />
-                    <Inputs name='username' placeholder='Username' type='text' value={formData.username} onChange={handleChange} />
-                    <Inputs name='password' placeholder='Password' type='password' value={formData.password} onChange={handleChange} />
-                    <SubmitButton type='submit'>Sign Up</SubmitButton>
-                </form>
+                <NewForm>
+                    <Inputs placeholder='NSBE ID' type='text'></Inputs>
+                    <Inputs placeholder='Role' type='text'></Inputs>
+                    <Inputs placeholder='Username' type='text'></Inputs>
+                    <Inputs placeholder='Password' type='password'></Inputs>
+                    <SubmitButton>Register</SubmitButton>
+                </NewForm>
             </InputContainer>
         </RegisterContainer>
+        </BottomOfContainer>
+        
      </Container>
     )
   }

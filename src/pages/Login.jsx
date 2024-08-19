@@ -11,7 +11,7 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: #794040;
+    background-color: #92140C;
     justify-content: center;
     display: block;
 `
@@ -56,12 +56,12 @@ const PageTitle = styled.div`
     text-align: center;
     padding-top: 20px;
     padding-bottom: 30px;
-    width: 98%;
+    width: 56%;
     color: white;
     font-weight: bold;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 `
 
 const InputContainer = styled.div`
@@ -116,12 +116,15 @@ const NewForm = styled.form`
 
 `
 const Image = styled.img`
-    height: 120px;
-    width: 120px;
+    width: 100px;
+    height: 100px;
+
 `
 const ImageContainer = styled.div`
-    width: 2%;
-    
+    padding:1%;
+    width: 44%;
+    justify-content: left;
+
 `
 
 
@@ -133,10 +136,10 @@ const Login = () => {
         <Banner>
             <BannerContainer>
                 <ImageContainer>
-                    <Image src="https://www.nsbe.org/getmedia/9e92a6e6-21d0-4be7-bda9-88b26865694f/1.png" alt=""></Image>
+                    <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                 </ImageContainer>
                 <PageTitle>
-                    Login to Scoreboard
+                    Login
                 </PageTitle>
             </BannerContainer>
         </Banner>
