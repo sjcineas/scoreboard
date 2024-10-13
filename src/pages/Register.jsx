@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Announcement from '../components/Announcement';
 import { WidthFull } from '@mui/icons-material';
 import { autocompleteClasses } from '@mui/material';
+import axios from 'axios';
 
 
 
@@ -128,6 +129,22 @@ const ImageContainer = styled.div`
 `
 
 const Register = () => {
+    const [values, setValues] = useState({
+        nsbeid: '',
+        email: '',
+        username:'',
+        password: ''
+    })
+    const handleChange = (event) => {
+        setValues({...values, [event.target.name]:event.target.value})
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        axios.post('http://localhost:3030/register', values)
+        .then(res => console.log("Registered Successfully!"))
+        .catch(err => console.log("Registration Failled: ",err));
+    }
+
     return (
      <Container>
         <Announcement/>
@@ -147,11 +164,11 @@ const Register = () => {
                 Login
             </PageTitle> */}
             <InputContainer>
-                <NewForm>
-                    <Inputs placeholder='NSBE ID' type='text'></Inputs>
-                    <Inputs placeholder='Role' type='text'></Inputs>
-                    <Inputs placeholder='Username' type='text'></Inputs>
-                    <Inputs placeholder='Password' type='password'></Inputs>
+                <NewForm onSubmit={handleSubmit}>
+                    <Inputs name='nsbeid' placeholder='NSBE ID' type='text' onChange={handleChange}></Inputs>
+                    <Inputs name='email' placeholder='Email' type='text' onChange={handleChange}></Inputs>
+                    <Inputs name='username' placeholder='Username' type='text' onChange={handleChange}></Inputs>
+                    <Inputs name='password' placeholder='Password' type='password' onChange={handleChange}></Inputs>
                     <SubmitButton>Register</SubmitButton>
                 </NewForm>
             </InputContainer>

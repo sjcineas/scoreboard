@@ -13,7 +13,7 @@ const Banner =  styled.div`
     height: 20%;
     width: 100%;
     display: flex;
-    background-color: #794040;
+    background-color: #92140C;
     align-items: center;
     justify-content: center;
 `
