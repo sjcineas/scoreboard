@@ -21,6 +21,16 @@ db.connect(err => {
         console.log('Connected to MySQL!');
     }
 });
+//JSON api response
+app.get('/', (req, res) =>{
+    return res.json("!! MySQL Server is running !!")
+})
+//Start server and listen to specified port numeber
+app.listen(3030, ()=>{
+    console.log("!! MySQL Server is running !!")
+}
+)
+
 //-------------------------------- Membership  Form--------------------------------
 app.post('/membershipform', (req, res)=> {
     const sessions = ['FALL', 'SPRING', 'SUMMER', 'WINTER', 'AUTUMN']
@@ -132,12 +142,11 @@ app.post('/register', (req, res) => {
     });
 
 })
-app.get('/', (req, res) =>{
-    return res.json("!! MySQL Server is running !!")
-})
+
+//-------------------------------- API Endpoints for Postman --------------------------------
 app.get('/api/data/register', (req, res) =>{
-    const queryStmnt = 'SELECT * FROM register';
-    db.query(queryStmnt, (err, result) =>{
+    const sql = 'SELECT * FROM register';
+    db.query(sql, (err, result) =>{
         if(err){
             console.log('Error getting data: ', err);
             return res.status(500).json({error: '!!! Database Query Error !!!\n'})
@@ -147,8 +156,8 @@ app.get('/api/data/register', (req, res) =>{
 });
 
 app.get('/api/data/membership', (req, res) =>{
-    const queryStmnt = 'SELECT * FROM membership';
-    db.query(queryStmnt, (err, result) =>{
+    const sql = 'SELECT * FROM membership';
+    db.query(sql, (err, result) =>{
         if(err){
             console.log('Error getting data: ', err);
             return res.status(500).json({error: '!!! Database Query Error !!!\n'})
@@ -156,8 +165,4 @@ app.get('/api/data/membership', (req, res) =>{
         return res.status(200).json(result);
     });
 });
-app.listen(3030, ()=>{
-        console.log("!! MySQL Server is running !!")
-    }
-)
 
