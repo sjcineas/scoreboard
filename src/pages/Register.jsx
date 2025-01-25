@@ -142,7 +142,14 @@ const Register = () => {
         event.preventDefault();
         axios.post('http://localhost:3030/register', values)
         .then(res => console.log("Registered Successfully!"))
-        .catch(err => console.log("Registration Failled: ",err));
+        .catch(err => {
+            if (err.response && err.response.status === 400) {
+                alert(err.response.data.error);
+            } else {
+                console.log("Registration Failed: ", err);
+            }
+
+        });
     }
 
     return (

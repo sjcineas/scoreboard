@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Form, Link } from 'react-router-dom';
+import axios from 'axios';
 import Announcement from '../components/Announcement';
 
 const Container = styled.div`
     display: flex;
-    flex-direction: column ;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;   /* Full width for horizontal centering */
 `;
 const MembershipFormTitle = styled.div`
     width: 100%;
@@ -22,19 +25,24 @@ const Image = styled.img`
 const ImageContainer = styled.div`
     padding:1%;
     width: 42%;
-    justify-content: left;
+    justify-content: center;
 
 `;
 const TitleContainer = styled.div`
     display: flex;
     flex-direction: column;
+
 `;
 const Title = styled.h1`
     color: white;
 `;
 
 const FormSection = styled.div`
-    width: 60%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 `;
 const Subtitle = styled.p`
     color: white;
@@ -44,41 +52,58 @@ const Subtitle = styled.p`
 const PersonalInformation = styled.div`
     color: #92140C;
     margin-top: 50px; 
-    width: 80%;
-`;
-
-const FormItem = styled.div`
     width: 100%;
-    display: block;
-    padding-bottom: 20px;
+    text-align: center;
 `;
 
 const Input = styled.input`
-    margin-top: 10px;
-    margin-left: 100;
-    width: 80%;
+    width: 100%;
+
 `;
 
 const InputContainer = styled.div`
     margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+    align-items: center;
+    width: 40%; /* Set width to desired size */
+    //max-width: 200px; /* Optional to limit size */
+    margin-left: auto; /* Center it horizontally */
+    margin-right: auto; /* Center it horizontally */
+
+
+`;
+const FormItem = styled.div`
+    display: block;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+
 `;
 const SchoolStatusTitle = styled.div`
     color: #92140C;
-    margin-top: 20px; 
+    margin-top: 20px;
+    text-align: center; 
 `;
 const ChooseMembership = styled.div`
     color: black;
     margin-top: 10px; 
+    text-align: center; 
 `;
-const SchoolstatusInputcontainer = styled.div`
+const SchoolStatusInputContainer = styled.div`
+    display: flex;
     margin-top: 10px;
-    width: 80%;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
     align-items: center;
 `;
 const CheckButtons = styled.input`
-    margin-top: 10px;
-    margin-bottom: 30px;
-    margin-left: 18px;    
+    width: 100%;
+    display: block;
+    justify-content: center;    
 `;
 
 const SubmitButton = styled.button`
@@ -89,8 +114,47 @@ const SubmitButton = styled.button`
     border: none;
     cursor: pointer;
     margin-top: 30px;
+    margin-left:auto;
+    margin-right: auto;
 `;
 const MembershipForm = () => {
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        major: '',
+        pantherId: '',
+        fiuEmail: '',
+        personalEmail: '',
+        gradSession: '',
+        gradYear: '',
+        phoneNumber: '',
+        schoolStatus: ''
+    });
+
+    const handleChange = (e) =>{
+        const {name, value} = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value 
+        }));
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3030/membershipform', formData);
+            alert(response.data.message);
+        } catch (error) {
+            if(error.response && error.response.data.error){
+                alert(error.response.data.error)
+            }else{
+                console.error('Error submitting form:', error);
+                alert('Failed to submit the form. \nError: ', error.response, '\nPlease try again.');
+            }
+        }
+    };
+
+    
     return (
         <Container>
             <Announcement/>
@@ -103,73 +167,69 @@ const MembershipForm = () => {
                 <Subtitle>N S B E  @  F I U</Subtitle>
             </TitleContainer>
             </MembershipFormTitle>
-            <FormSection>
-                <PersonalInformation>
-                    <h3>Personal Information</h3>
-                </PersonalInformation>
-                <InputContainer>
-                    <form>
+            <form onSubmit={handleSubmit} style={{width:'100%', justifyContent: 'center'}}>
+                <FormSection>
+                    <PersonalInformation>
+                        <h3>Personal Information</h3>
+                    </PersonalInformation>
+                    <InputContainer>
                         <FormItem>
-                            <label htmlFor="firstName"><h4>First Name:</h4></label>
-                            <Input placeholder="First Name" type="text" id="firstName"/>
+                            <label name="firstName"><h4>First Name:</h4></label>
+                            <Input placeholder="First Name" type="text" id="firstName" name="firstName"onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label htmlFor="lastName"><h4>Last Name:</h4></label>
-                            <Input placeholder="Last Name" type="text" id="lastName"/>
+                            <label name="lastName"><h4>Last Name:</h4></label>
+                            <Input placeholder="Last Name" type="text" id="lastName" name="lastName"onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label htmlFor="major"><h4>Major:</h4></label>
-                            <Input placeholder="Major" type="text" id="major"/>
+                            <label name="major"><h4>Major:</h4></label>
+                            <Input placeholder="Major" type="text" id="major" name="major" onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label htmlFor="pantherId"><h4>Panther ID:</h4></label>
-                            <Input placeholder="Panther ID" type="text" id="pantherId" />
+                            <label name="pantherId"><h4>Panther ID:</h4></label>
+                            <Input placeholder="Panther ID" type="text" id="pantherId" name="pantherId" onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label htmlFor="fiuEmail"><h4>FIU Email:</h4></label>
-                            <Input placeholder="FIU Email" type="email" id="fiuEmail" />
+                            <label name="fiuEmail"><h4>FIU Email:</h4></label>
+                            <Input placeholder="FIU Email" type="email" id="fiuEmail" name="fiuEmail" onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label htmlFor="personalEmail"><h4>Personal Email:</h4></label>
-                            <Input placeholder="Personal Email" type="email" id="personalEmail" />
+                            <label name="personalEmail"><h4>Personal Email:</h4></label>
+                            <Input placeholder="Personal Email" type="email" id="personalEmail" name="personalEmail"  onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label htmlFor="gradSession"><h4>Grad Session:</h4></label>
-                            <Input placeholder="Grad Session" type="text" id="gradSession" />
+                            <label name="gradSession"><h4>Grad Session:</h4></label>
+                            <Input placeholder="Grad Session" type="text" id="gradSession" name="gradSession"onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label htmlFor="gradYear"><h4>Grad Year:</h4></label>
-                            <Input placeholder="Grad Year" type="text" id="gradYear" />
+                            <label name="gradYear"><h4>Grad Year:</h4></label>
+                            <Input placeholder="Grad Year" type="number" id="gradYear" name="gradYear" onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label htmlFor="phoneNumber"><h4>Phone Number:</h4></label>
-                            <Input placeholder="Phone Number" type="text" id="phoneNumber" />
+                            <label name="phoneNumber"><h4>Phone Number:</h4></label>
+                            <Input placeholder="Phone Number" type="text" id="phoneNumber" name="phoneNumber" onChange={handleChange}/>
                         </FormItem>
-                    </form>
-                </InputContainer>
-            </FormSection>
-            <br/>
-            <FormSection>
-                <SchoolStatusTitle>
-                    <h3>School Status</h3>
-                </SchoolStatusTitle>
-                <ChooseMembership>
-                    <h5>*Choose your type of membership</h5>
-                </ChooseMembership>
-                <SchoolstatusInputcontainer>
-                    <CheckButtons value='Freshman' type='checkbox' id='frame1' /> Freshman
-                    <CheckButtons value='Sophomore' type='checkbox' id='frame2' /> Sophomore
-                    <CheckButtons value='Junior' type='checkbox' id='frame3' /> Junior
-                    <CheckButtons value='Senior' type='checkbox' id='frame4' /> Senior
-                    <CheckButtons value='Graduate Student' type='checkbox' id='frame5' /> Graduate Student
-                </SchoolstatusInputcontainer>
-            </FormSection>
-            <br/>
-            <div>
-                <center>
-                <SubmitButton type="submit">Submit</SubmitButton>
-                </center>
-            </div>
+                    </InputContainer>
+            
+                    <br/>
+                    <SchoolStatusTitle>
+                        <h3>School Status</h3>
+                    </SchoolStatusTitle>
+                    <ChooseMembership>
+                        <h5>*Choose your type of membership</h5>
+                    </ChooseMembership>
+                    <SchoolStatusInputContainer>
+                        <CheckButtons value="Freshman" type="radio" id="frame1" name="schoolStatus" onChange={handleChange}/> Freshman
+                        <CheckButtons value="Sophomore" type="radio" id="frame2" name="schoolStatus" onChange={handleChange} /> Sophomore
+                        <CheckButtons value="Junior" type="radio" id="frame3" name="schoolStatus" onChange={handleChange} /> Junior
+                        <CheckButtons value="Senior" type="radio" id="frame4" name="schoolStatus" onChange={handleChange}/> Senior
+                        <CheckButtons value="Graduate Student" type="radio" id="frame5" name="schoolStatus" onChange={handleChange}/> Graduate Student
+                    </SchoolStatusInputContainer>
+                    <br/>
+                    <SubmitButton type="submit">Submit</SubmitButton>
+                </FormSection>
+            </form>
+                
         </Container>
     )
 }
