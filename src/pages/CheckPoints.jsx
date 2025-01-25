@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import Announcement from '../components/Announcement';
-import { sampleData } from "../test-content/sampleData";
-
 const Container = styled.div`
     width: 100%;
     height: 100vh;
@@ -100,7 +98,19 @@ const PointsBox1 = styled.div`
 `
 
 const CheckPoints = () => {
-  return (
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3030/api/data/membership')
+        .then((response) => response.json())
+        .then((data) =>{
+            setData(data);
+        })
+        .catch((error) => {
+            console.error('Error fetching data: ', error);
+        })
+    }, []);
+    return (
     
     <Container>
         <Announcement/>
@@ -120,10 +130,10 @@ const CheckPoints = () => {
                 <IdBox1><h1>Id</h1></IdBox1>
                 <PointsBox1><h1>Points</h1></PointsBox1>
             </TableLabels>
-            {sampleData.map((item, index) =>(
-                <DetailedContentBox key={item.id} odd={index % 2 === 1}>
-                        <NameBox>{item.name}</NameBox>
-                        <IdBox>{item.id}</IdBox>
+            {data.map((item, index) =>(
+                <DetailedContentBox key={item.pantherId} odd={index % 2 === 1}>
+                        <NameBox>{`${item.firstName} ${item.lastName}`}</NameBox>
+                        <IdBox>{item.pantherId}</IdBox>
                         <PointsBox>{item.points}</PointsBox>
                 </DetailedContentBox>
             )
