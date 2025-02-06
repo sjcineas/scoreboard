@@ -53,7 +53,7 @@ app.post('/membershipform', (req, res)=> {
     if(fiuEmail.indexOf('@fiu.edu') == -1)
         return res.status(400).json({error: 'Please enter a valid FIU email.'});
 
-    if(pantherId.length > 6 || pantherId < 6)
+    if(pantherId.length < 7)
         return res.status(400).json({error: 'ERROR: Please enter a valid 6-digit panther ID.'});
     
     if(gradSession === null || !sessions.includes(gradSession.toUpperCase()))
@@ -143,6 +143,7 @@ app.post('/register', (req, res) => {
 
 })
 
+
 //-------------------------------- API Endpoints for Postman --------------------------------
 app.get('/api/data/register', (req, res) =>{
     const sql = 'SELECT * FROM register';
@@ -166,3 +167,44 @@ app.get('/api/data/membership', (req, res) =>{
     });
 });
 
+app.get('/api/data/membership/:pantherId', (req, res) =>{
+    const {pantherId} = req.params;
+    const sql = 'SELECT * FROM membership WHERE pantherID = ?';
+    db.query(sql, [pantherId],  (err, result) =>{
+        if(err){
+            console.log('Error getting data: ', err);
+            return res.status(404).json({error: '!!! No data was found with pantherId provided !!!\n'})
+        }
+        return res.status(200).json(result);
+    });
+});
+
+app.put('/api/data/membership/:pantherId/addPoints/:points', (req, res) =>{
+    const {pantherId, points} = req.params;
+    const sql = 'UPDATE membership SET points = points + ? WHERE pantherId = ?';
+    db.query(sql, [parseInt(points), pantherId],  (err, result) =>{
+        if(err){
+            console.log('Error getting data: ', err);
+            return res.status(404).json({error: '!!! No data was found with pantherId provided !!!\n'})
+        }
+        return res.status(200).json(result);
+    });
+});
+
+app.get('/login/:username/:password', (req, res) => {
+    const {username, password} = req.params;
+
+    // Authenticate
+    const authSql = 'SELECT * FROM register WHERE username = ? AND password = ?';
+    db.query(authSql, [username, password], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database query error' });
+        }
+        if (result.length == 0 ) { 
+            return res.status(404).json({error: 'Invalid username and password combination'});
+        } else {
+            return res.status(200).json('Login Successful');
+        }
+    });
+
+})

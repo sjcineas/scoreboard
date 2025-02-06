@@ -72,6 +72,17 @@ const DetailedContentBox = styled.div`
     padding-bottom: 20px;
 
 `
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease; /* Smooth transition for the hover effect */
+
+    &:hover {
+        font-size: 1.2em; /* Increase the font size */
+        color: 9A6F6F; /* Change the color on hover */
+    }
+`;
+
 const NameBox = styled.div`
     flex:1;
     text-align: center;
@@ -131,10 +142,14 @@ const CheckPoints = () => {
                 <PointsBox1><h1>Points</h1></PointsBox1>
             </TableLabels>
             {data.map((item, index) =>(
-                <DetailedContentBox key={item.pantherId} odd={index % 2 === 1}>
-                        <NameBox>{`${item.firstName} ${item.lastName}`}</NameBox>
+                <DetailedContentBox key={item.pantherId} odd={index % 2 === 1 ? "true" : undefined} >
+                        <NameBox style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <StyledLink key={item.pantherId} to={`/StudentInfo/${item.pantherId}`} > 
+                                {`${item.firstName} ${item.lastName}`}
+                            </StyledLink>
+                        </NameBox>
                         <IdBox>{item.pantherId}</IdBox>
-                        <PointsBox>{item.points}</PointsBox>
+                        <PointsBox>{item.points}</PointsBox>     
                 </DetailedContentBox>
             )
             )}

@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import MembershipForm from "./pages/MembershipForm"
+import StudentInfo from "./pages/StudentInfo"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -10,10 +11,11 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<CheckPoints/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/checkpoints" element={<CheckPoints/>}/>
+        <Route path="/Checkpoints" element={<CheckPoints/>}/>
+        <Route path="/Login" element={<Login/>}/>
+        <Route path="/Register" element={<Register/>}/>
         <Route path="/MembershipForm" element={<MembershipForm/>}/>
+        <Route path="/StudentInfo/:pantherId" element={<StudentInfo/>}/>
       </Routes>  
     </BrowserRouter>
   );
