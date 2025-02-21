@@ -36,6 +36,7 @@ This will install the necessary Node modules.
    ii. Connect to the server by clicking Local Instance
    iii. Create new schema called `score`
    iv. create new tables by running the following queries:
+   
    register
    ```
       USE score;
