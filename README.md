@@ -89,7 +89,7 @@ This will install the necessary Node modules.
       );
    ```
 
-6. Create .env file and fill in the <inputs>
+6. Create .env file  with the following and fill in the <inputs>
  ```
    DB_HOST=localhost
    DB_USER=<usually 'root' but may be different'
