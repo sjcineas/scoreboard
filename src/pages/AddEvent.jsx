@@ -1,0 +1,234 @@
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import axios from 'axios';
+import Announcement from '../components/Announcement';
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+`;
+const AddEventFormTitle = styled.div`
+    width: 100%;
+    background-color: #92140C;
+    display: flex;
+    align-items: center;
+`;
+const Image = styled.img`
+    width: 100px;
+    height: 100px;
+
+`;
+const ImageContainer = styled.div`
+    padding:1%;
+    width: 42%;
+    justify-content: center;
+
+`;
+const TitleContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+
+`;
+const Title = styled.h1`
+    color: white;
+`;
+
+const FormSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+`;
+const Subtitle = styled.p`
+    color: white;
+    margin: 0; 
+    padding-left: 80px;
+`;
+const EventDetailTitle = styled.div`
+    color: #92140C;
+    margin-top: 50px; 
+    width: 100%;
+    text-align: center;
+`;
+
+const Input = styled.input`
+    width: 100%;
+
+`;
+const TextArea = styled.textarea`
+    width: auto;
+    min-height: 50px;
+    max-height: 300px; 
+    resize: vertical; 
+    overflow: auto;
+    padding: 8px;
+    font-size: 16px;
+`;
+
+
+const InputContainer = styled.div`
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+    align-items: center;
+    width: 40%; 
+    margin-left: auto; 
+    margin-right: auto; 
+
+
+`;
+const FormItem = styled.div`
+    display: block;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+
+`;
+
+
+const SubmitButton = styled.button`
+    background-color: #92140C;
+    color: white;
+    padding: 10px 50px;
+    margin-bottom: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 30px;
+    margin-left:auto;
+    margin-right: auto;
+`;
+const ErrorMessage = styled.p`
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+`;
+
+const AddEvent = () => {
+    const [error, setError] = useState('');
+    const [invalidIds, setInvalidIds] = useState([]);
+    const [formData, setFormData] = useState({
+        eventName: '',
+        eventType: '',
+        pointValue: 0,
+        idList: ''
+    });
+
+    const handleChange = (e) =>{
+        const {name, value} = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value 
+        }));
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:3030/addEvent', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(formData), // Use formData correctly
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                setError(data.message || 'Could not save event');
+                if (data.invalidIds) {
+                    setInvalidIds(data.invalidIds); // Save invalid IDs for display
+                }
+    
+            }
+        } catch (error) {
+            setError('Network error. Please try again.');
+        }
+    };
+    
+
+    
+    return (
+        <Container>
+            <Announcement/>
+            <AddEventFormTitle>
+                <ImageContainer>
+                    <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
+                </ImageContainer>
+            <TitleContainer>
+                <Title>Event Management</Title>
+                <Subtitle>N S B E  @  F I U</Subtitle>
+            </TitleContainer>
+            </AddEventFormTitle>
+            <form onSubmit={handleSubmit} style={{width:'100%', justifyContent: 'center'}}>
+                <FormSection>
+                    <EventDetailTitle>
+                        <h3>Event Details</h3>
+                    </EventDetailTitle>
+                    <InputContainer>
+                        <FormItem>
+                            <label name="eventName"><h4>Event Name:</h4></label>
+                            <Input 
+                                placeholder="Event Name" 
+                                type="text" 
+                                id="eventName" 
+                                name="eventName"
+                                value={formData.eventName} 
+                                onChange={handleChange}
+                            />
+                        </FormItem>
+                        <FormItem>
+                            <label name="eventType"><h4>Event Type:</h4></label>
+                            <select placeholder="Event Type" type="text" id="eventType" name="eventType" value={formData.eventType} onChange={handleChange}>
+                                <option value="">Select Event Type</option>
+                                <option value="General Body Meeting">General Body Meeting</option>
+                                <option value="Study Hall">Study Hall</option>
+                                <option value="Social">Social</option>
+                                <option value="Student Organization Collaboration">Student Organization Collaboration</option>
+                                <option value="Volunteer">Volunteer</option>
+                                <option value="Signature">Signature</option>
+                                <option value="Industry">Industry</option>
+                            </select>
+                        </FormItem>
+                        <FormItem>
+                            <label name="Point Value"><h4>Point Value:</h4></label>
+                            <Input 
+                                placeholder="" 
+                                type="number" 
+                                id="pointValue" 
+                                name="pointValue"
+                                value={formData.pointValue} 
+                                onChange={handleChange}
+                            />
+                        </FormItem>
+                        <FormItem>
+                            <label name="Attendee ID List"><h4>Attendee ID List:</h4></label>
+                            <TextArea 
+                                placeholder="Attendee ID List" 
+                                type="text" 
+                                id="idList" 
+                                name="idList"  
+                                value={formData.idList}
+                                onChange={handleChange}
+                            />
+                        </FormItem>
+                        
+                    </InputContainer>
+
+                    <br/>
+                    {invalidIds.length > 0 && (
+                        <ErrorMessage>
+                            The following Panther IDs are invalid: {invalidIds.join(', ')}
+                        </ErrorMessage>
+                    )}
+                    <SubmitButton type="submit">Submit</SubmitButton>
+                </FormSection>
+            </form>
+                
+        </Container>
+    )
+}
+export default AddEvent

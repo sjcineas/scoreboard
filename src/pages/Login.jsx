@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Announcement from '../components/Announcement';
+import { useNavigate } from 'react-router-dom';
 import { WidthFull } from '@mui/icons-material';
 import { autocompleteClasses } from '@mui/material';
 
@@ -69,9 +70,9 @@ const InputContainer = styled.div`
     height: auto;
     align-items: center;
     justify-content: center;
-    display: flex; /* Change display to flex */
-    flex-direction: column; /* Align items in a column */`
-
+    display: flex; 
+    flex-direction: column; 
+`
 const Inputs = styled.input`
     height: 30px;
     width: 100%;
@@ -126,45 +127,84 @@ const ImageContainer = styled.div`
     justify-content: left;
 
 `
-
+const ErrorMessage = styled.p`
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+`;
 
 
 const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+            const response = await fetch('http://localhost:3030/auth/login', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ username, password }),
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                localStorage.setItem('token', data.token); // Assuming your API returns a token
+                localStorage.setItem('user', JSON.stringify({ username })); // Store user info
+                
+                navigate('/'); // Redirect after successful login
+            } else {
+                setError(data.message || 'Invalid username or password');
+            }
+        } catch (err) {
+            setError('Network error. Please try again.');
+        }
+    };
+    
     return (
-     <Container>
-        <Announcement/>
-        <Banner>
-            <BannerContainer>
-                <ImageContainer>
-                    <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
-                </ImageContainer>
-                <PageTitle>
-                    Login
-                </PageTitle>
-            </BannerContainer>
-        </Banner>
-        <BottomOfContainer>
-        <LoginContainer>
-            {/* <PageTitle>
-                Login
-            </PageTitle> */}
-            <InputContainer>
-                <NewForm>
-                    <Inputs placeholder='Username' type='text'></Inputs>
-                    <Inputs placeholder='Password' type='password'></Inputs>
-                    <SubmitButton>Login</SubmitButton>
-                    <h5>Don't have an account yet?</h5>
-                    <Link to="/register" style={{ width: '100%' }}>
-                        <SignUpButton>Sign Up</SignUpButton>
-                    </Link>
-                </NewForm>
-            </InputContainer>
-        </LoginContainer>
-        </BottomOfContainer>
-        
-     </Container>
-    )
-  }
-  
+        <Container>
+            <Announcement />
+            <Banner>
+                <BannerContainer>
+                    <ImageContainer>
+                        <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
+                    </ImageContainer>
+                    <PageTitle>Login</PageTitle>
+                </BannerContainer>
+            </Banner>
+            <BottomOfContainer>
+                <LoginContainer>
+                    <InputContainer>
+                        <NewForm onSubmit={handleSubmit}>
+                            <Inputs
+                                placeholder="Username"
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <Inputs
+                                placeholder="Password"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {error && <ErrorMessage>{error}</ErrorMessage>}
+                            <SubmitButton type="submit">Login</SubmitButton>
+                            <h5>Don't have an account yet?</h5>
+                            <Link to="/register" style={{ width: '100%' }}>
+                                <SignUpButton>Sign Up</SignUpButton>
+                            </Link>
+                        </NewForm>
+                    </InputContainer>
+                </LoginContainer>
+            </BottomOfContainer>
+        </Container>
+    );
+};
+
   export default Login
-  

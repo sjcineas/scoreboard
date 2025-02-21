@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import FeedIcon from '@mui/icons-material/Feed';
@@ -87,10 +88,26 @@ const DropdownItem = styled(Link)`
 
 const Announcement = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
+    const navigate = useNavigate(); 
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, []);
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
-        console.log('Dropdown state:', !dropdownOpen); // Debugging state change
+    };
+    
+    const handleSignOut = () => {
+        localStorage.removeItem('token'); 
+        localStorage.removeItem('user'); 
+
+
+        console.log('User signed out');
+        navigate('/login'); 
+
     };
 
     return (
@@ -108,9 +125,17 @@ const Announcement = () => {
                     <AccountBoxIcon id="AccountBoxIcon" style={{ cursor: 'pointer' }} />
                 </Icon>
                 <Dropdown open={dropdownOpen}>
-                    <DropdownItem to="/register">Register</DropdownItem>
-                    <DropdownItem to="/login">Login</DropdownItem>
-                    <DropdownItem to="/signout">Sign Out</DropdownItem>
+                    {isLoggedIn ? (
+                        <>
+                            <DropdownItem to="/addEvent">Add Event</DropdownItem>
+                            <DropdownItem to="#" onClick={handleSignOut}>Sign Out</DropdownItem>
+                        </>
+                    ) : (
+                        <>
+                            <DropdownItem to="/register">Register</DropdownItem>
+                            <DropdownItem to="/login">Login</DropdownItem>
+                        </>
+                    )}
                 </Dropdown>
             </RightContainer>
         </Container>
