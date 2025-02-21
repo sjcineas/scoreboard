@@ -54,17 +54,17 @@ This will install the necessary Node modules.
       USE score;
       
       CREATE TABLE IF NOT EXISTS membership (
-      firstName varchar(255),
-      lastName varchar(255),
-      major varchar(255),
-      pantherId char(7) PRIMARY KEY,
-      fiuEmail varchar(255),
-      personalEmail varchar(255),
-      gradSession varchar(6),
-      gradYear int,
-      phoneNumber varchar(20),
-      schoolStatus varchar(50),
-      points int
+          firstName varchar(255),
+          lastName varchar(255),
+          major varchar(255),
+          pantherId char(7) PRIMARY KEY,
+          fiuEmail varchar(255),
+          personalEmail varchar(255),
+          gradSession varchar(6),
+          gradYear int,
+          phoneNumber varchar(20),
+          schoolStatus varchar(50),
+          points int
 
       );
    ```
@@ -74,20 +74,28 @@ This will install the necessary Node modules.
       USE score;
    
       CREATE TABLE IF NOT EXISTS (
-      eventName varchar(50),
-      eventType varchar(50),
-      eventValue int
+          eventName varchar(50),
+          eventType varchar(50),
+          eventValue int
       );
    ```
    attendance
    ```
       CREATE TABLE IF NOT EXISTS attendance (
-      pantherId int AUTO_INCREMENT PRIMARY KEY,
-   	eventName varchar(50),
-   	eventType varchar(50),
-   	eventValue int
+          pantherId int AUTO_INCREMENT PRIMARY KEY,
+         	eventName varchar(50),
+         	eventType varchar(50),
+         	eventValue int
       );
    ```
+
+6. Create .env file and fill in the <inputs>
+ ```
+   DB_HOST=localhost
+   DB_USER=<usually 'root' but may be different'
+   DB_PASSWORD= <password>
+   DB_NAME=score
+ ```
 ## Start the React app:
 
  ```bash
