@@ -72,21 +72,25 @@ This will install the necessary Node modules.
    events
    ```
       USE score;
-   
-      CREATE TABLE IF NOT EXISTS (
-          eventName varchar(50),
-          eventType varchar(50),
-          eventValue int
+
+      CREATE TABLE IF NOT EXISTS events (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          eventName VARCHAR(50),
+          eventType VARCHAR(50),
+          eventValue INT
       );
+
    ```
    attendance
    ```
       CREATE TABLE IF NOT EXISTS attendance (
-          pantherId int AUTO_INCREMENT PRIMARY KEY,
-         	eventName varchar(50),
-         	eventType varchar(50),
-         	eventValue int
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          pantherId CHAR(7), -- No FOREIGN KEY constraint
+          eventName VARCHAR(50),
+          eventType VARCHAR(50),
+          eventValue INT
       );
+
    ```
 
 6. Create .env file  with the following and fill in the <inputs>
