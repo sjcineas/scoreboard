@@ -112,7 +112,7 @@ const CheckPoints = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3030/api/data/membership')
+        fetch('http://localhost:3030/data/membership')
         .then((response) => response.json())
         .then((data) =>{
             setData(data);

@@ -130,19 +130,21 @@ const AddEvent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3030/addEvent', { 
+            const response = await fetch('http://localhost:3030/addEvent/log/event', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify(formData), // Use formData correctly
+                body: JSON.stringify(formData), 
             });
             const data = await response.json();
             if (!response.ok) {
                 setError(data.message || 'Could not save event');
                 if (data.invalidIds) {
-                    setInvalidIds(data.invalidIds); // Save invalid IDs for display
+                    setInvalidIds(data.invalidIds); 
                 }
     
+            }else{
+                alert('Successfully Added Event and Points')
             }
         } catch (error) {
             setError('Network error. Please try again.');

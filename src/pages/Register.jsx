@@ -140,7 +140,7 @@ const Register = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:3030/register', values)
+        axios.post('http://localhost:3030/register/users', values)
         .then(res => console.log("Registered Successfully!"))
         .catch(err => {
             if (err.response && err.response.status === 400) {
