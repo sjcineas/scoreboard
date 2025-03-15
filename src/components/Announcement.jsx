@@ -103,10 +103,10 @@ const Announcement = () => {
     const handleSignOut = () => {
         localStorage.removeItem('token'); 
         localStorage.removeItem('user'); 
-
-
         console.log('User signed out');
-        navigate('/login'); 
+        setIsLoggedIn(false);
+        navigate('/'); 
+        window.location.reload();
 
     };
 
