@@ -14,7 +14,7 @@ router.post('/auth/login', (req, res) => {
 
         const token = generateToken(username);
         res.cookie('auth_token', token, { httpOnly: true, secure: true, sameSite: 'Strict', maxAge: 86400000 });
-        res.status(200).json({ success: true, message: "Login successful" });
+        res.status(200).json({ success: true, message: "Login successful", token });
     });
 });
 
