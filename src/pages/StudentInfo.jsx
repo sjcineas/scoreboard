@@ -82,30 +82,48 @@ const RowContent = styled.div`
     padding: 10px;
     background-color: #ffffff;
 `;
+
+const MessageContainer = styled.div`
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8d7da;
+    border-radius: 5px;
+    width: 100%;
+`;
+
 const StudentInfo = () => {
     const { pantherId } = useParams();
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     useEffect(() => {
         if (!pantherId) {
             console.error("No Panther ID found, stopping fetch.");
             return;
         }
-        fetch(`http://localhost:3030/api/data/membership/${pantherId}`)
+        fetch(`http://localhost:3030/StudentInfo/${pantherId}`)
         .then((response) => response.json())
-        .then((data) =>{
-            const studentData = data.find((item) => item.pantherId === pantherId);
-            setData(studentData); 
+        .then((result) =>{
+            if (result.data?.length === 0) {
+                setData([]); 
+            } else {
+                setData(result.data);
+            }        
+
         })
         .catch((error) => {
             console.error('Error fetching data: ', error);
         })
     }, [pantherId]);
-    if (!data) {
-        return <div>Loading...</div>;
+    if (!data || data.length === 0) {
+        return (
+            <>
+                <Announcement />
+                <MessageContainer>No data found</MessageContainer>
+            </>
+        );
     }
-    if (Object.keys(data).length === 0) {
-        return <div>No student data found!</div>;
-    }
+    
     return(
         <Container>
             <Announcement/>
@@ -120,40 +138,15 @@ const StudentInfo = () => {
                 </BannerContainer>
             </Banner>
             <PageContent>
-                <Table>
-                    <Row> 
-                        <RowLabel>FIRST NAME</RowLabel>
-                        <RowContent> {data.firstName}</RowContent>
-                    </Row>
-                    <Row> 
-                        <RowLabel>LAST NAME</RowLabel>
-                        <RowContent> {data.lastName}</RowContent>
-                    </Row>
-                    <Row> 
-                        <RowLabel>MAJOR</RowLabel>
-                        <RowContent> {data.major}</RowContent>
-                    </Row>
-                    <Row> 
-                        <RowLabel>PANTHER ID</RowLabel>
-                        <RowContent> {data.pantherId}</RowContent>
-                    </Row>
-                    <Row> 
-                        <RowLabel>GRADUATION SESSION</RowLabel>
-                        <RowContent> {data.gradSession}</RowContent>
-                    </Row>
-                    <Row> 
-                        <RowLabel>GRADUATION YEAR</RowLabel>
-                        <RowContent> {data.gradYear}</RowContent>
-                    </Row>
-                    <Row> 
-                        <RowLabel> SCHOOL STATUS</RowLabel>
-                        <RowContent> {data.schoolStatus}</RowContent>
-                    </Row>
-                    <Row> 
-                        <RowLabel>TOTAL POINTS</RowLabel>
-                        <RowContent> {data.points}</RowContent>
-                    </Row>
-                </Table>
+              <Table>
+                        {data.map((item, index) => (
+                            <Row key={index}>
+                                <RowLabel>{item.eventName}</RowLabel>
+                                <RowContent>{item.eventType}</RowContent>
+                                <RowContent>Value: {item.eventValue}</RowContent>
+                            </Row>
+                        ))}
+                    </Table>
             </PageContent>
         </Container>
     )

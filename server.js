@@ -7,6 +7,7 @@ const membershipRoutes = require('./routes/membership');
 const registerRoutes = require('./routes/register');
 const eventRoutes = require('./routes/events');
 const loginRoutes = require('./routes/login'); 
+const attendanceRoutes = require('./routes/attendance')
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use('', membershipRoutes);
 app.use('/register', registerRoutes);
 app.use('/addEvent', eventRoutes);
 app.use('/login', loginRoutes);  
+app.use('', attendanceRoutes);
 
 
 app.get('/', (req, res) => res.json("!! MySQL Server is running !!"));
