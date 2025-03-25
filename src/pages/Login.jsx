@@ -174,7 +174,7 @@ const Login = () => {
                     <ImageContainer>
                         <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                     </ImageContainer>
-                    <PageTitle>Login</PageTitle>
+                    <PageTitle id='page_title'>Login</PageTitle>
                 </BannerContainer>
             </Banner>
             <BottomOfContainer>
@@ -182,22 +182,24 @@ const Login = () => {
                     <InputContainer>
                         <NewForm onSubmit={handleSubmit}>
                             <Inputs
+                                id='username_input'
                                 placeholder="Username"
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                             <Inputs
+                                id='password_input'
                                 placeholder="Password"
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             {error && <ErrorMessage>{error}</ErrorMessage>}
-                            <SubmitButton type="submit">Login</SubmitButton>
-                            <h5>Don't have an account yet?</h5>
-                            <Link to="/register" style={{ width: '100%' }}>
-                                <SignUpButton>Sign Up</SignUpButton>
+                            <SubmitButton id='login_button' type="submit">Login</SubmitButton>
+                            <h5 id='account_yet_text'>Don't have an account yet?</h5>
+                            <Link  to="/register" style={{ width: '100%' }}>
+                                <SignUpButton id='register_nav_button'>Sign Up</SignUpButton>
                             </Link>
                         </NewForm>
                     </InputContainer>

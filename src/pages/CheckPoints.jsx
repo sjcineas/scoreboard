@@ -130,16 +130,16 @@ const CheckPoints = () => {
                 <ImageContainer>
                     <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                 </ImageContainer>
-                <PageTitle>
+                <PageTitle id= 'page_title'>
                     Member Stat Sheet
                 </PageTitle>
             </BannerContainer>
         </Banner>
         <ContentBox>
             <TableLabels>
-                <NameBox1><h1> Name</h1></NameBox1>
-                <IdBox1><h1>Id</h1></IdBox1>
-                <PointsBox1><h1>Points</h1></PointsBox1>
+                <NameBox1 id='name_header'><h1> Name</h1></NameBox1>
+                <IdBox1 id='id_header'><h1>Id</h1></IdBox1>
+                <PointsBox1 id='points_header'><h1>Points</h1></PointsBox1>
             </TableLabels>
             {data.map((item, index) =>(
                 <DetailedContentBox key={item.pantherId} odd={index % 2 === 1 ? "true" : undefined} >

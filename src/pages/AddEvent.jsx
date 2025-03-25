@@ -161,14 +161,14 @@ const AddEvent = () => {
                     <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                 </ImageContainer>
             <TitleContainer>
-                <Title>Event Management</Title>
-                <Subtitle>N S B E  @  F I U</Subtitle>
+                <Title id='page_title'>Event Management</Title>
+                <Subtitle id='page_subtitle'>N S B E  @  F I U</Subtitle>
             </TitleContainer>
             </AddEventFormTitle>
             <form onSubmit={handleSubmit} style={{width:'100%', justifyContent: 'center'}}>
                 <FormSection>
                     <EventDetailTitle>
-                        <h3>Event Details</h3>
+                        <h3 id='event_details_section_label'>Event Details</h3>
                     </EventDetailTitle>
                     <InputContainer>
                         <FormItem>
@@ -176,7 +176,7 @@ const AddEvent = () => {
                             <Input 
                                 placeholder="Event Name" 
                                 type="text" 
-                                id="eventName" 
+                                id="event_name" 
                                 name="eventName"
                                 value={formData.eventName} 
                                 onChange={handleChange}
@@ -184,23 +184,24 @@ const AddEvent = () => {
                         </FormItem>
                         <FormItem>
                             <label name="eventType"><h4>Event Type:</h4></label>
-                            <select placeholder="Event Type" type="text" id="eventType" name="eventType" value={formData.eventType} onChange={handleChange}>
+                            <select id="event_type" name="eventType" value={formData.eventType} onChange={handleChange}>
                                 <option value="">Select Event Type</option>
-                                <option value="General Body Meeting">General Body Meeting</option>
-                                <option value="Study Hall">Study Hall</option>
-                                <option value="Social">Social</option>
-                                <option value="Student Organization Collaboration">Student Organization Collaboration</option>
-                                <option value="Volunteer">Volunteer</option>
-                                <option value="Signature">Signature</option>
-                                <option value="Industry">Industry</option>
+                                <option id="_gbm" value="General Body Meeting">General Body Meeting</option>
+                                <option id="_study_hall" value="Study Hall">Study Hall</option>
+                                <option id="_social" value="Social">Social</option>
+                                <option id="_collaboration" value="Student Organization Collaboration">Student Organization Collaboration</option>
+                                <option id="_volunteer" value="Volunteer">Volunteer</option>
+                                <option id="_signature" value="Signature">Signature</option>
+                                <option id="_industry" value="Industry">Industry</option>
                             </select>
+
                         </FormItem>
                         <FormItem>
                             <label name="Point Value"><h4>Point Value:</h4></label>
                             <Input 
                                 placeholder="" 
                                 type="number" 
-                                id="pointValue" 
+                                id="point_value" 
                                 name="pointValue"
                                 value={formData.pointValue} 
                                 onChange={handleChange}
@@ -211,7 +212,7 @@ const AddEvent = () => {
                             <TextArea 
                                 placeholder="Attendee ID List" 
                                 type="text" 
-                                id="idList" 
+                                id="id_list" 
                                 name="idList"  
                                 value={formData.idList}
                                 onChange={handleChange}

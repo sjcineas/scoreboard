@@ -160,7 +160,7 @@ const Register = () => {
                 <ImageContainer>
                     <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                 </ImageContainer>
-                <PageTitle>
+                <PageTitle id='page_title'>
                     Sign Up
                 </PageTitle>
             </BannerContainer>
@@ -172,11 +172,10 @@ const Register = () => {
             </PageTitle> */}
             <InputContainer>
                 <NewForm onSubmit={handleSubmit}>
-                    <Inputs name='nsbeid' placeholder='NSBE ID' type='text' onChange={handleChange}></Inputs>
-                    <Inputs name='email' placeholder='Email' type='text' onChange={handleChange}></Inputs>
-                    <Inputs name='username' placeholder='Username' type='text' onChange={handleChange}></Inputs>
-                    <Inputs name='password' placeholder='Password' type='password' onChange={handleChange}></Inputs>
-                    <SubmitButton>Register</SubmitButton>
+                    <Inputs id='email_input' name='email' placeholder='Email' type='text' onChange={handleChange}></Inputs>
+                    <Inputs id ='username_input' name='username' placeholder='Username' type='text' onChange={handleChange}></Inputs>
+                    <Inputs id =''name='password_input' placeholder='Password' type='password' onChange={handleChange}></Inputs>
+                    <SubmitButton id ='register_button' >Register</SubmitButton>
                 </NewForm>
             </InputContainer>
         </RegisterContainer>

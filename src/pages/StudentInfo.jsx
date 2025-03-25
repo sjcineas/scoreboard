@@ -132,7 +132,7 @@ const StudentInfo = () => {
                     <ImageContainer>
                         <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                     </ImageContainer>
-                    <PageTitle>
+                    <PageTitle id='page_title'>
                         Student Information
                     </PageTitle>
                 </BannerContainer>

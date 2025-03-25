@@ -163,70 +163,70 @@ const MembershipForm = () => {
                     <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                 </ImageContainer>
             <TitleContainer>
-                <Title>Membership Form</Title>
-                <Subtitle>N S B E  @  F I U</Subtitle>
+                <Title id = 'page_title'>Membership Form</Title>
+                <Subtitle id='page_subtitle'>N S B E  @  F I U</Subtitle>
             </TitleContainer>
             </MembershipFormTitle>
             <form onSubmit={handleSubmit} style={{width:'100%', justifyContent: 'center'}}>
                 <FormSection>
                     <PersonalInformation>
-                        <h3>Personal Information</h3>
+                        <h3 id = 'personal_info_section_title'>Personal Information</h3>
                     </PersonalInformation>
                     <InputContainer>
                         <FormItem>
-                            <label name="firstName"><h4>First Name:</h4></label>
-                            <Input placeholder="First Name" type="text" id="firstName" name="firstName"onChange={handleChange}/>
+                            <label id='first_name_label' name="firstName"><h4>First Name:</h4></label>
+                            <Input placeholder="First Name" type="text" id="first_name_input" name="firstName"onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label name="lastName"><h4>Last Name:</h4></label>
-                            <Input placeholder="Last Name" type="text" id="lastName" name="lastName"onChange={handleChange}/>
+                            <label id="last_name_label" name="lastName"><h4>Last Name:</h4></label>
+                            <Input placeholder="Last Name" type="text" id="last_name_input" name="lastName"onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label name="major"><h4>Major:</h4></label>
-                            <Input placeholder="Major" type="text" id="major" name="major" onChange={handleChange}/>
+                            <label id='major_label' name="major"><h4>Major:</h4></label>
+                            <Input placeholder="Major" type="text" id="major_input" name="major" onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label name="pantherId"><h4>Panther ID:</h4></label>
-                            <Input placeholder="Panther ID" type="text" id="pantherId" name="pantherId" onChange={handleChange}/>
+                            <label id='panther_id_label' name="pantherId"><h4>Panther ID:</h4></label>
+                            <Input placeholder="Panther ID" type="text" id="panther_id_input" name="pantherId" onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label name="fiuEmail"><h4>FIU Email:</h4></label>
-                            <Input placeholder="FIU Email" type="email" id="fiuEmail" name="fiuEmail" onChange={handleChange}/>
+                            <label id='fiu_email_label' name="fiuEmail"><h4>FIU Email:</h4></label>
+                            <Input placeholder="FIU Email" type="email" id="fiu_email_input" name="fiuEmail" onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label name="personalEmail"><h4>Personal Email:</h4></label>
-                            <Input placeholder="Personal Email" type="email" id="personalEmail" name="personalEmail"  onChange={handleChange}/>
+                            <label id="personal_email_label" name="personalEmail"><h4>Personal Email:</h4></label>
+                            <Input placeholder="Personal Email" type="email" id="personal_email_input" name="personalEmail"  onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label name="gradSession"><h4>Grad Session:</h4></label>
-                            <Input placeholder="Grad Session" type="text" id="gradSession" name="gradSession"onChange={handleChange}/>
+                            <label id="grad_session_label" name="gradSession"><h4>Grad Session:</h4></label>
+                            <Input placeholder="Grad Session" type="text" id="grad_session_input" name="gradSession"onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label name="gradYear"><h4>Grad Year:</h4></label>
-                            <Input placeholder="Grad Year" type="number" id="gradYear" name="gradYear" onChange={handleChange}/>
+                            <label id="grad_year_label" name="gradYear"><h4>Grad Year:</h4></label>
+                            <Input placeholder="Grad Year" type="number" id="grad_year_input" name="gradYear" onChange={handleChange}/>
                         </FormItem>
                         <FormItem>
-                            <label name="phoneNumber"><h4>Phone Number:</h4></label>
-                            <Input placeholder="Phone Number" type="text" id="phoneNumber" name="phoneNumber" onChange={handleChange}/>
+                            <label id="phone_number_label" name="phoneNumber"><h4>Phone Number:</h4></label>
+                            <Input placeholder="Phone Number" type="text" id="phone_number_input" name="phoneNumber" onChange={handleChange}/>
                         </FormItem>
                     </InputContainer>
             
                     <br/>
                     <SchoolStatusTitle>
-                        <h3>School Status</h3>
+                        <h3 id='school_status_section_label' >School Status</h3>
                     </SchoolStatusTitle>
                     <ChooseMembership>
-                        <h5>*Choose your type of membership</h5>
+                        <h5 id='membership_type_label'>*Choose your type of membership</h5>
                     </ChooseMembership>
                     <SchoolStatusInputContainer>
-                        <CheckButtons value="Freshman" type="radio" id="frame1" name="schoolStatus" onChange={handleChange}/> Freshman
-                        <CheckButtons value="Sophomore" type="radio" id="frame2" name="schoolStatus" onChange={handleChange} /> Sophomore
-                        <CheckButtons value="Junior" type="radio" id="frame3" name="schoolStatus" onChange={handleChange} /> Junior
-                        <CheckButtons value="Senior" type="radio" id="frame4" name="schoolStatus" onChange={handleChange}/> Senior
-                        <CheckButtons value="Graduate Student" type="radio" id="frame5" name="schoolStatus" onChange={handleChange}/> Graduate Student
+                        <CheckButtons value="Freshman" type="radio" id="freshman_label" name="schoolStatus" onChange={handleChange}/> Freshman
+                        <CheckButtons value="Sophomore" type="radio" id="sophomore_label" name="schoolStatus" onChange={handleChange} /> Sophomore
+                        <CheckButtons value="Junior" type="radio" id="junior_label" name="schoolStatus" onChange={handleChange} /> Junior
+                        <CheckButtons value="Senior" type="radio" id="senior_label" name="schoolStatus" onChange={handleChange}/> Senior
+                        <CheckButtons value="Graduate Student" type="radio" id="grad_student_label" name="schoolStatus" onChange={handleChange}/> Graduate Student
                     </SchoolStatusInputContainer>
                     <br/>
-                    <SubmitButton type="submit">Submit</SubmitButton>
+                    <SubmitButton id='submit_form_label'type="submit">Submit</SubmitButton>
                 </FormSection>
             </form>
                 
