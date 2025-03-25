@@ -195,7 +195,7 @@ const Login = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            {error && <ErrorMessage>{error}</ErrorMessage>}
+                            {error && <ErrorMessage id='error_message'>{error}</ErrorMessage>}
                             <SubmitButton id='login_button' type="submit">Login</SubmitButton>
                             <h5 id='account_yet_text'>Don't have an account yet?</h5>
                             <Link  to="/register" style={{ width: '100%' }}>

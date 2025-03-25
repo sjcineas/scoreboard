@@ -208,7 +208,7 @@ const AddEvent = () => {
                             />
                         </FormItem>
                         <FormItem>
-                            <label name="Attendee ID List"><h4>Attendee ID List:</h4></label>
+                            <label id='attendee_id_list_label' name="Attendee ID List"><h4>Attendee ID List:</h4></label>
                             <TextArea 
                                 placeholder="Attendee ID List" 
                                 type="text" 
@@ -223,7 +223,7 @@ const AddEvent = () => {
 
                     <br/>
                     {invalidIds.length > 0 && (
-                        <ErrorMessage>
+                        <ErrorMessage id='error_message'>
                             The following Panther IDs are invalid: {invalidIds.join(', ')}
                         </ErrorMessage>
                     )}
