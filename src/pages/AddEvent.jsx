@@ -130,19 +130,21 @@ const AddEvent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3030/addEvent/log/event', { 
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify(formData), 
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                setError(data.message || 'Could not save event');
-                if (data.invalidIds) {
-                    setInvalidIds(data.invalidIds); 
+            const response = await axios.post('http://localhost:3030/addEvent/log/event',
+                formData,
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
                 }
-    
+            );
+            const data = await response.data;
+            if (data.invalidPantherIds?.length > 0) {
+                setInvalidIds(data.invalidPantherIds.map(entry => {
+                    const pantherId = Object.keys(entry)[0];  
+                    const message = Object.values(entry)[0];
+                    return `{${pantherId}: ${message}}`;
+                })); 
+                setError('Some IDs had issues.');
             }else{
                 alert('Successfully Added Event and Points')
             }

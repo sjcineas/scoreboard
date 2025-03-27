@@ -2,6 +2,8 @@ import React, { useEffect, useState} from 'react'
 import Announcement from '../components/Announcement'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
+import axios from 'axios';
+
 const Container = styled.div`
     width: 100%;
     height: 100vh;
@@ -110,19 +112,18 @@ const StudentInfo = () => {
             console.error("No Panther ID found, stopping fetch.");
             return;
         }
-        fetch(`http://localhost:3030/StudentInfo/${pantherId}`)
-        .then((response) => response.json())
-        .then((result) =>{
-            if (result.data?.length === 0) {
+        axios.get(`http://localhost:3030/StudentInfo/${pantherId}`)
+        .then((response) => {
+            if (response.data?.data?.length === 0) {
                 setData([]); 
             } else {
-                setData(result.data);
+                setData(response.data.data);
             }        
-
         })
         .catch((error) => {
             console.error('Error fetching data: ', error);
         })
+        
     }, [pantherId]);
     if (!data || data.length === 0) {
         return (

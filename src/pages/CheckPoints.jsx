@@ -2,6 +2,8 @@ import React, { useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import Announcement from '../components/Announcement';
+import axios from 'axios';
+
 const Container = styled.div`
     width: 100%;
     height: 100vh;
@@ -112,10 +114,9 @@ const CheckPoints = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3030/data/membership')
-        .then((response) => response.json())
-        .then((data) =>{
-            setData(data);
+        axios.get('http://localhost:3030/data/membership')
+        .then((response) =>{
+            setData(response.data);
         })
         .catch((error) => {
             console.error('Error fetching data: ', error);

@@ -3,10 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Announcement from '../components/Announcement';
 import { useNavigate } from 'react-router-dom';
-import { WidthFull } from '@mui/icons-material';
-import { autocompleteClasses } from '@mui/material';
-
-
+import axios from 'axios';
 
 const Container = styled.div`
     width: 100%;
@@ -144,22 +141,24 @@ const Login = () => {
         e.preventDefault();
     
         try {
-            const response = await fetch('http://localhost:3030/login/auth/login', { 
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ username, password }),
-            });
+            const response = await axios.post(
+                'http://localhost:3030/login/auth/login',
+                {username,password},
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            )
     
-            const data = await response.json();
+            const data = await response.data;
     
-            if (response.ok) {
+            if (response.status=== 200) {
                 localStorage.setItem('token', data.token); // Assuming your API returns a token
                 localStorage.setItem('user', JSON.stringify({ username })); // Store user info
                 
                 navigate('/'); // Redirect after successful login
             } else {
-                setError(data.message || 'Invalid username or password');
+                setError('Invalid username or password');
             }
         } catch (err) {
             setError('Network error. Please try again.');

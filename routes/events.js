@@ -18,29 +18,50 @@ router.post('/log/event', (req, res) => {
         }
 
         const pantherIds = idList.split(',').map(id => id.trim());  
+        let invalidPantherIds = [];
+
+        const processPantherId = async (pantherId) => {
+            return new Promise((resolve) => {
+                const checkMembership = 'SELECT * FROM membership WHERE pantherId = ?';
+                db.query(checkMembership, [pantherId], (err, memberResult) => {
+                    if (err) {
+                        invalidPantherIds.push({ pantherId, error: 'Database query error for membership' });
+                        return resolve();
+                    }
         
-        pantherIds.forEach(pantherId => {
-            const checkMembership = 'SELECT * FROM membership WHERE pantherId = ?';
-            db.query(checkMembership, [pantherId], (err, memberResult) => {
-                if (err) return res.status(500).json({ error: 'Database query error for membership' });
-
-                if (memberResult.length > 0) {
-                    const updatePoints = 'UPDATE membership SET points = points + ? WHERE pantherId = ?';
-                    db.query(updatePoints, [pointValue, pantherId], (err, updateResult) => {
-                        if (err) return res.status(500).json({ error: 'Could not update points' });
-
-                        const addAttendance = 'INSERT INTO attendance (pantherId, eventName, eventType, eventValue) VALUES (?, ?, ?, ?)';
-                        db.query(addAttendance, [pantherId, eventName, eventType, pointValue], (err, attendanceResult) => {
-                            if (err) return res.status(500).json({ error: 'Could not insert attendance record' });
+                    if (memberResult.length > 0) {
+                        const updatePoints = 'UPDATE membership SET points = points + ? WHERE pantherId = ?';
+                        db.query(updatePoints, [pointValue, pantherId], (err) => {
+                            if (err) {
+                                invalidPantherIds.push({ [pantherId]:'Could not update points' });
+                                return resolve();
+                            }
+        
+                            const addAttendance = 'INSERT INTO attendance (pantherId, eventName, eventType, eventValue) VALUES (?, ?, ?, ?)';
+                            db.query(addAttendance, [pantherId, eventName, eventType, pointValue], (err) => {
+                                if (err) invalidPantherIds.push({ [pantherId]: 'Could not insert attendance record' });
+                                resolve(); 
+                            });
                         });
-                    });
-                } else {
-                    return res.status(400).json({ error: `No member found for Panther ID: ${pantherId}` });
-                }
+                    } else {
+                        invalidPantherIds.push({ [pantherId]: 'Has not filled out membership form' });
+                        resolve();
+                    }
+                });
             });
+        };
+        
+        Promise.all(pantherIds.map(processPantherId))
+        .then(() => {
+            return res.status(201).json({
+                message: 'Event and attendance successfully added.',
+                invalidPantherIds: invalidPantherIds.length > 0 ? invalidPantherIds : undefined
+            });
+        })
+        .catch((error) => {
+            return res.status(500).json({ message: 'Server error', error });
         });
 
-        return res.status(201).json({ message: 'Event and attendance successfully added' });
     });
 });
 
