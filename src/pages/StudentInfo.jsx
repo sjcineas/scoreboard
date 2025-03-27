@@ -61,21 +61,30 @@ const Table = styled.div`
     background-color: #92140C;
 
 `
+const TableLabels = styled.div`
+    padding-top:10px;
+    padding-bottom: 10px;    
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #1E1E24;
+    color: white;
+`
+const TableLabelTitle = styled.div`
+    display:flex;
+    padding: 10px;
+    font-weight: bold;
+    flex: 1;
+`
 const Row = styled.div`
     display:flex;
     justify-content: space-between;
-    margin: 10px;
-    //border-bottom: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
 
     &:last-child {
         border-bottom: none;
     }
-`;
-const RowLabel = styled.div`
-    width: 50%;
-    font-weight: bold;
-    padding: 10px;
-    background-color: #f0f0f0;
 `;
 const RowContent = styled.div`
     width: 50%;
@@ -139,11 +148,16 @@ const StudentInfo = () => {
             </Banner>
             <PageContent>
               <Table>
+                        <TableLabels>
+                                <TableLabelTitle>Event Name</TableLabelTitle>
+                                <TableLabelTitle>Event Type</TableLabelTitle>
+                                <TableLabelTitle>Event Value</TableLabelTitle>
+                        </TableLabels>
                         {data.map((item, index) => (
                             <Row key={index}>
-                                <RowLabel>{item.eventName}</RowLabel>
+                                <RowContent>{item.eventName}</RowContent>
                                 <RowContent>{item.eventType}</RowContent>
-                                <RowContent>Value: {item.eventValue}</RowContent>
+                                <RowContent>{item.eventValue}  Point(s)</RowContent>
                             </Row>
                         ))}
                     </Table>
