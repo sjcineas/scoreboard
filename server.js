@@ -23,5 +23,5 @@ app.use('', attendanceRoutes);
 
 app.get('/', (req, res) => res.json("!! MySQL Server is running !!"));
 
-const PORT = process.env.DB_PORT || 3030;
+const PORT = process.env.APP_PORT || 3030;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
