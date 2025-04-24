@@ -130,7 +130,6 @@ const ImageContainer = styled.div`
 
 const Register = () => {
     const [values, setValues] = useState({
-        nsbeid: '',
         email: '',
         username:'',
         password: ''

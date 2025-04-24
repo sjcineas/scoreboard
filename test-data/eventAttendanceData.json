@@ -1,0 +1,20 @@
+[
+    {
+        "eventName": "Test Event 3",
+        "eventType": "Social",
+        "pointValue": 2,
+        "pantherIds": "1112222, 2223333, 3334444, 4445555, 4447777, 5556666, 5557777, 6667777, 6668888, 7779999, 8880000, 9991111"
+    },
+    {
+        "eventName": "Test Event 2",
+        "eventType": "Student Organization Collaboration",
+        "pointValue": 5,
+        "pantherIds" : "1112222, 2223333, 3334444, 4445555, 4447777, 5556666, 5557777"
+    },
+    {
+        "eventName": "Test Event 1",
+        "eventType": "General Body Meeting",
+        "pointValue": 3,
+        "pantherIds": "5556666, 5557777, 6667777, 6668888, 7779999, 8880000, 9991111"
+    }
+]

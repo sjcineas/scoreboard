@@ -3,14 +3,14 @@ const db = require('../config/db');
 const router = express.Router();
 
 router.post('/log/event', (req, res) => {
-    const { eventName, eventType, pointValue, idList } = req.body; 
-
+    let { eventName, eventType, pointValue, idList } = req.body; 
+    pointValue = Number(pointValue);
     const checkEventName = 'SELECT * FROM events WHERE eventName = ?';
     db.query(checkEventName, [eventName], (err, result) => {
-        if (err) return res.status(500).json({ error: 'Database query error' });
+        if (err) return res.status(500).json({ error: 'Database query error'});
 
         if (result.length === 0) {
-            const sql = 'INSERT IGNORE INTO events (eventName, eventType, eventValue) VALUES (?, ?, ?)';
+            const sql = 'INSERT IGNORE INTO events (eventName, eventType, eventValue) VALUES ( ?, ?, ?)';
             db.query(sql, [eventName, eventType, pointValue], (err, data) => {
                 if (err) return res.status(500).json({ error: 'Could not register event' });
                 console.log('Event Added Successfully');
@@ -59,10 +59,21 @@ router.post('/log/event', (req, res) => {
             });
         })
         .catch((error) => {
-            return res.status(500).json({ message: 'Server error', error });
+            return res.status(500).json({ message: 'Server error' });
         });
 
     });
 });
+
+router.get('/pastEvents', (req, res) => {
+    const getAllEvents = 'SELECT * FROM events ORDER BY id DESC'; // or whatever your primary key is
+
+    db.query(getAllEvents, (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error fetching events' });
+
+        return res.status(200).json(results);
+    });
+});
+
 
 module.exports = router;
