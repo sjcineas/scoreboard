@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 
 const db = require('./config/db');
-const membershipRoutes = require('./routes/membership');
-const registerRoutes = require('./routes/register');
-const eventRoutes = require('./routes/events');
-const loginRoutes = require('./routes/login'); 
-const attendanceRoutes = require('./routes/attendance')
+const membershipRoutes = require('../server/routes/membership');
+const registerRoutes = require('../server/routes/register');
+const eventRoutes = require('../server/routes/events');
+const loginRoutes = require('../server/routes/login'); 
+const attendanceRoutes = require('../server/routes/attendance')
 
 
 const app = express();
@@ -22,6 +22,6 @@ app.use('', attendanceRoutes);
 
 
 app.get('/', (req, res) => res.json("!! MySQL Server is running !!"));
-
+console.log('Using DB_HOST:', process.env.DB_HOST);
 const PORT = process.env.APP_PORT || 3030;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

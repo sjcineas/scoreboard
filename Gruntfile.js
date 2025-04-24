@@ -1,10 +1,9 @@
-const { connect } = require('mongoose');
 const fs = require('fs');
 const axios = require('axios');
 const { exec } = require('child_process');
 
 async function createTable(grunt, sqlQuery){
-    const db = require('./config/db').promise();
+    const db = require('./server/config/db').promise();
     try{
         await db.query(sqlQuery)
         grunt.log.write('Table created successfully or already existed.\n').ok();
@@ -17,7 +16,7 @@ async function createTable(grunt, sqlQuery){
     };
 }
 async function deleteTables(grunt, sqlQuery){
-    const db = require('./config/db').promise();
+    const db = require('./server/config/db').promise();
     try{
         await db.query(sqlQuery)
         grunt.log.write('Table droppped successfully.\n').ok();
@@ -31,7 +30,6 @@ async function deleteTables(grunt, sqlQuery){
 }
 module.exports = function(grunt) {
     grunt.initConfig({});
-    grunt.loadNpmTasks('grunt-exec');
     grunt.registerTask('create-tables', function(){
         done = this.async();
         const createRegisterTable = `

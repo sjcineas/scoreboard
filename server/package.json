@@ -29,9 +29,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "npm run client",
-    "server": "nodemon server/server.js",
-    "launch": "concurrently \"npm run server\" \"npm run start\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server.js",
     "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

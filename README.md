@@ -81,6 +81,4 @@ grunt drop-tables
 ## Start the React app:
 
  ```bash
- npm start
-```
-
+ npm run launch
