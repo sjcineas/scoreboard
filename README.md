@@ -31,13 +31,22 @@ Make sure you have the following installed on your machine:
 
 This will install the necessary Node modules.
 
-5. reate .env file  with the following and fill in the <inputs>
+4. Create .env file  with the following and fill in the <inputs>
  ```
    DB_HOST=localhost
    DB_USER=<usually 'root' but may be different'
    DB_PASSWORD= <password>
    DB_NAME=score
  ```
+
+5. You will need to create tables and seed data. Run the following commands (not together) to do so.
+```bash
+grunt create-tables
+```
+```bash
+grunt seed-data
+```
+
 ## Grunt Tasks
 
 To automate database setup, seeding, and app startup, use the following Grunt commands:
