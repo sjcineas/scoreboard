@@ -31,76 +31,47 @@ Make sure you have the following installed on your machine:
 
 This will install the necessary Node modules.
 
-5. Setup Databases
-   i. Open MySQL Workbench
-   ii. Connect to the server by clicking Local Instance
-   iii. Create new schema called `score`
-   iv. create new tables by running the following queries:
-   
-   register
-   ```
-      USE score;
-      
-      CREATE TABLE IF NOT EXISTS register (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          nsbeid VARCHAR(50),
-          role VARCHAR(50),
-          username VARCHAR(50),
-          password VARCHAR(50)
-      );
-   ```
-   membership
-   ```
-      USE score;
-      
-      CREATE TABLE IF NOT EXISTS membership (
-          firstName varchar(255),
-          lastName varchar(255),
-          major varchar(255),
-          pantherId char(7) PRIMARY KEY,
-          fiuEmail varchar(255),
-          personalEmail varchar(255),
-          gradSession varchar(6),
-          gradYear int,
-          phoneNumber varchar(20),
-          schoolStatus varchar(50),
-          points int
-
-      );
-   ```
-
-   events
-   ```
-      USE score;
-
-      CREATE TABLE IF NOT EXISTS events (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          eventName VARCHAR(50),
-          eventType VARCHAR(50),
-          eventValue INT
-      );
-
-   ```
-   attendance
-   ```
-      CREATE TABLE IF NOT EXISTS attendance (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          pantherId CHAR(7), -- No FOREIGN KEY constraint
-          eventName VARCHAR(50),
-          eventType VARCHAR(50),
-          eventValue INT
-      );
-
-   ```
-
-6. Create .env file  with the following and fill in the <inputs>
+5. reate .env file  with the following and fill in the <inputs>
  ```
    DB_HOST=localhost
    DB_USER=<usually 'root' but may be different'
    DB_PASSWORD= <password>
    DB_NAME=score
  ```
+## Grunt Tasks
+
+To automate database setup, seeding, and app startup, use the following Grunt commands:
+
+### create-tables
+
+Creates the necessary tables (`register`, `membership`, `events`, `attendance`) in your `score` database if they don't already exist.
+
+```bash
+grunt create-tables
+```
+### seed-data
+
+Seeds the database tables with initial test data from JSON files located in ./test-data. It adds members, admin users, events, and attendance data by making HTTP POST requests to your API.
+```bash
+grunt seed-data
+```
+
+### start-and-seed
+Starts the application (npm start) in a new terminal tab, waits 20 seconds for it to initialize, then seeds the database with the initial data.
+```bash
+grunt start-and-seed
+```
+
+### drop-tables
+Drops all tables (membership, events, register, attendance) from the database.
+```bash
+grunt drop-tables
+```
+
+
 ## Start the React app:
 
  ```bash
  npm start
+```
+
