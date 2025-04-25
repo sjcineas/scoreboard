@@ -142,6 +142,7 @@ const MembershipForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const API = process.env.REACT_APP_API_URL;
             const response = await axios.post(`${API}/membershipform`, formData);
             alert(response.data.message);
         } catch (error) {
