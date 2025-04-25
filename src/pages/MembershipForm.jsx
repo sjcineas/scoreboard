@@ -142,7 +142,7 @@ const MembershipForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3030/membershipform', formData);
+            const response = await axios.post(`${API}/membershipform`, formData);
             alert(response.data.message);
         } catch (error) {
             if(error.response && error.response.data.error){

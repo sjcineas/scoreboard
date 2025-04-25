@@ -130,7 +130,8 @@ const AddEvent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3030/addEvent/log/event',
+            const API = process.env.REACT_APP_API_URL;
+            const response = await axios.post(`${API}/addEvent/log/event`,
                 formData,
                 {
                     headers: { 'Content-Type': 'application/json' },

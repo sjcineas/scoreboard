@@ -141,8 +141,9 @@ const Login = () => {
         e.preventDefault();
     
         try {
+            const API = process.env.REACT_APP_API_URL;
             const response = await axios.post(
-                'http://localhost:3030/login/auth/login',
+                `${API}/login/auth/login`,
                 {username,password},
                 {
                     headers: { 'Content-Type': 'application/json' },

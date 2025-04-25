@@ -114,7 +114,8 @@ const CheckPoints = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3030/data/membership')
+        const API = process.env.REACT_APP_API_URL;
+        axios.get(`${API}/data/membership`)
         .then((response) =>{
             setData(response.data);
         })
