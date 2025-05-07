@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import Announcement from '../components/Announcement';
 import axios from 'axios';
+require('dotenv').config({ path: __dirname + '/.env.production' });
+
 
 const Container = styled.div`
     width: 100%;
@@ -115,6 +117,7 @@ const CheckPoints = () => {
 
     useEffect(() => {
         const API = process.env.REACT_APP_API_URL;
+        console.log("Fetching from:", `${API}/data/membership`);
         axios.get(`${API}/data/membership`)
         .then((response) =>{
             setData(response.data);
