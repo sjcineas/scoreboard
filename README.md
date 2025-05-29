@@ -83,4 +83,4 @@ grunt drop-tables
  ```bash
  npm run launch
 
-test build
+test builder
