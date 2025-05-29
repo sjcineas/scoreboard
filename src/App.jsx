@@ -1,5 +1,5 @@
 import CheckPoints from "./pages/CheckPoints";
-import Home from "./pages/Home"
+//import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import MembershipForm from "./pages/MembershipForm"

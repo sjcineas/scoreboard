@@ -151,6 +151,7 @@ const AddEvent = () => {
             }
         } catch (error) {
             setError('Network error. Please try again.');
+            alert(error)
         }
     };
     
@@ -224,6 +225,12 @@ const AddEvent = () => {
                         
                     </InputContainer>
 
+                    <br/>
+                    {error && (
+                        <ErrorMessage id='general_error_message'>
+                        {error}
+                        </ErrorMessage>
+                    )}
                     <br/>
                     {invalidIds.length > 0 && (
                         <ErrorMessage id='error_message'>
