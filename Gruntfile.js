@@ -24,6 +24,7 @@ async function deleteTables(grunt, sqlQuery){
     }catch(err){
         grunt.log.error('Failed to execute query to drop table:\n', sqlQuery, '\n');
         grunt.log.error(err.message);
+        throw err;
     }finally{
         db.end()
     };
