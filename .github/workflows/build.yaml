@@ -15,7 +15,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'  # your Node version
+        node-version: '16' 
 
     - name: Install React dependencies
       run: npm install
@@ -27,8 +27,8 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: '17'  # or your Java version
+        java-version: '17' 
 
-    - name: Run Java tests
-      run: mvn test  # or `mvn test` depending on your build tool
+    - name: Build Java project
+      run: mvn compile 
       working-directory: ./testing/Testing
