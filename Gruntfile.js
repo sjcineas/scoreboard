@@ -24,6 +24,7 @@ async function deleteTables(grunt, sqlQuery){
     }catch(err){
         grunt.log.error('Failed to execute query to drop table:\n', sqlQuery, '\n');
         grunt.log.error(err.message);
+        throw err;
     }finally{
         db.end()
     };
@@ -115,7 +116,7 @@ module.exports = function(grunt) {
                     schoolStatus: member.schoolStatus
                 }
                 //response not used (or yet needed)
-                const response = await axios.post('http://localhost:3030/membershipform', formData);
+                const response = await axios.post('http://scoreboard-server-env.eba-meu7gxv4.us-east-2.elasticbeanstalk.com/membershipform', formData);
                 grunt.log.ok(`\nSuccessfully added members to membership table!\n`)
             }catch(error){
                 grunt.log.error("Unable to add member with data:\n", member)
@@ -133,7 +134,7 @@ module.exports = function(grunt) {
                     password : admin.password
                 }
                 //response not used (or yet needed)
-                const response = await axios.post('http://localhost:3030/register/users', formData)
+                const response = await axios.post('http://scoreboard-server-env.eba-meu7gxv4.us-east-2.elasticbeanstalk.com/register/users', formData)
                 grunt.log.ok(`\nSuccessfully added admin to register table!\n`)
             }catch(error){
                 grunt.log.error("Unable to add admin with data:\n", admin)
@@ -152,7 +153,7 @@ module.exports = function(grunt) {
                     idList: event.pantherIds
                 }
                 //response not used (or yet needed)
-                const response = await axios.post('http://localhost:3030/addEvent/log/event',
+                const response = await axios.post('http://scoreboard-server-env.eba-meu7gxv4.us-east-2.elasticbeanstalk.com/addEvent/log/event',
                     formData,
                     {
                         headers: { 'Content-Type': 'application/json' },
@@ -171,7 +172,7 @@ module.exports = function(grunt) {
         const done = this.async();
         grunt.log.write("!!!ATTENTION!!!\nThis task may not work on windows unless cmd is changed INSIDE of Gruntfile.js\n\n");
         grunt.log.write("Starting application...\n\n")
-        const cmd = `osascript -e 'tell application "Terminal" to do script "cd \\"${process.cwd()}\\" && npm start"'`;
+        const cmd = `start cmd /k "cd /d ${process.cwd()} && npm start"`;
         /*
         OR on WINDOWS
         const cmd = `start cmd /k "cd /d ${process.cwd()} && npm start"`;

@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config({ path: __dirname + '/.env' });
+require('dotenv').config({ path: __dirname + '/../.env' });
 
 const db = require('./config/db');
 const membershipRoutes = require('../server/routes/membership');
@@ -11,7 +11,7 @@ const attendanceRoutes = require('../server/routes/attendance')
 
 
 const app = express();
-app.use(cors({ origin: 'https://main.d1sjp4nu90qs09.amplifyapp.com/', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000/', credentials: true }));
 app.use(express.json());
 
 app.use('', membershipRoutes);

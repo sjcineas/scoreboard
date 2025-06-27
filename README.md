@@ -31,7 +31,7 @@ Make sure you have the following installed on your machine:
 
 This will install the necessary Node modules.
 
-4. Create .env file  with the following and fill in the <inputs>
+4. Create .env file inside server folder with the following and fill in the <inputs>
  ```
    DB_HOST=localhost
    DB_USER=<usually 'root' but may be different'

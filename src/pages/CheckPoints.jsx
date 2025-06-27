@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import Announcement from '../components/Announcement';
 import axios from 'axios';
+require('dotenv').config({ path: __dirname + '/.env.production' });
+
 
 const Container = styled.div`
     width: 100%;
@@ -114,7 +116,8 @@ const CheckPoints = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3030/data/membership')
+        const API = process.env.REACT_APP_API_URL;
+        axios.get(`${API}/data/membership`)
         .then((response) =>{
             setData(response.data);
         })
@@ -143,7 +146,7 @@ const CheckPoints = () => {
                 <PointsBox1 id='points_header'><h1>Points</h1></PointsBox1>
             </TableLabels>
             {data.map((item, index) =>(
-                <DetailedContentBox key={item.pantherId} odd={index % 2 === 1 ? "true" : undefined} >
+                <DetailedContentBox id={"student" + item.pantherId} key={item.pantherId} odd={index % 2 === 1 ? "true" : undefined} >
                         <NameBox style={{ textDecoration: 'none', color: 'inherit' }}>
                             <StyledLink key={item.pantherId} to={`/StudentInfo/${item.pantherId}`} > 
                                 {`${item.firstName} ${item.lastName}`}

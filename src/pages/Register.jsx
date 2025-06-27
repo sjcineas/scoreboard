@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Announcement from '../components/Announcement';
-import { WidthFull } from '@mui/icons-material';
-import { autocompleteClasses } from '@mui/material';
 import axios from 'axios';
-
-
 
 const Container = styled.div`
     width: 100%;
@@ -97,18 +92,18 @@ const SubmitButton = styled.button`
   }
 `
 
-const SignUpButton = styled.button`
-    border-radius: 4px;
-    height: 30px;
-    width: 100%;
-    background-color: #1E1E24;
-    color: #FFF8F0;
-    font-weight: bold;
-    cursor: pointer;
-    &:hover {
-    background-color: #92140C;
-  }
-`
+// const SignUpButton = styled.button`
+//     border-radius: 4px;
+//     height: 30px;
+//     width: 100%;
+//     background-color: #1E1E24;
+//     color: #FFF8F0;
+//     font-weight: bold;
+//     cursor: pointer;
+//     &:hover {
+//     background-color: #92140C;
+//   }
+// `
 const NewForm = styled.form`
     justify-content: center;
     display: flex;
@@ -139,7 +134,8 @@ const Register = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:3030/register/users', values)
+        const API = process.env.REACT_APP_API_URL;
+        axios.post(`${API}/register/users`, values)
         .then(res => console.log("Registered Successfully!"))
         .catch(err => {
             if (err.response && err.response.status === 400) {

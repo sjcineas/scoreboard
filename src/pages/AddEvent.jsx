@@ -130,7 +130,8 @@ const AddEvent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3030/addEvent/log/event',
+            const API = process.env.REACT_APP_API_URL;
+            const response = await axios.post(`${API}/addEvent/log/event`,
                 formData,
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -150,6 +151,7 @@ const AddEvent = () => {
             }
         } catch (error) {
             setError('Network error. Please try again.');
+            alert(error)
         }
     };
     
@@ -223,6 +225,12 @@ const AddEvent = () => {
                         
                     </InputContainer>
 
+                    <br/>
+                    {error && (
+                        <ErrorMessage id='general_error_message'>
+                        {error}
+                        </ErrorMessage>
+                    )}
                     <br/>
                     {invalidIds.length > 0 && (
                         <ErrorMessage id='error_message'>

@@ -112,7 +112,8 @@ const StudentInfo = () => {
             console.error("No Panther ID found, stopping fetch.");
             return;
         }
-        axios.get(`http://localhost:3030/StudentInfo/${pantherId}`)
+        const API = process.env.REACT_APP_API_URL;
+        axios.get(`${API}/StudentInfo/${pantherId}`)
         .then((response) => {
             if (response.data?.data?.length === 0) {
                 setData([]); 
