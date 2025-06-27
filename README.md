@@ -77,7 +77,6 @@ Drops all tables (membership, events, register, attendance) from the database.
 grunt drop-tables
 ```
 
-
 ## Start the React app:
 
  ```bash
