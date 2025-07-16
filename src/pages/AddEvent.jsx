@@ -126,7 +126,7 @@ const AddEvent = () => {
         if (!isLoggedIn) {
             navigate('/login');
         }
-    }, []);
+    }, [navigate]);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
