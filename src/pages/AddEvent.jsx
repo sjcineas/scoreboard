@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import axios from 'axios';
 import NavBar from '../components/NavBar';
@@ -114,7 +112,6 @@ const ErrorMessage = styled.p`
 
 const AddEvent = () => {
     const navigate = useNavigate();
-    const navigate = useNavigate();
     const [error, setError] = useState('');
     const [invalidIds, setInvalidIds] = useState([]);
     const [formData, setFormData] = useState({
@@ -130,32 +127,16 @@ const AddEvent = () => {
             navigate('/login');
         }
     }, []);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-    
-    useEffect(() => {
-        const isLoggedIn = localStorage.getItem('token');
-        if (!isLoggedIn) {
-            navigate('/login');
-        }
-    }, []);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: value
             [name]: value
         }));
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.eventName || !formData.eventType || !formData.pointValue || !formData.idList) {
-            setError('All fields are required.');
-            return;
-        }
         if (!formData.eventName || !formData.eventType || !formData.pointValue || !formData.idList) {
             setError('All fields are required.');
             return;
@@ -183,33 +164,11 @@ const AddEvent = () => {
             setInvalidIds([]);
             setError('');
             alert('Successfully Added Event and Points');
-        
-            if (Array.isArray(data.invalidPantherIds) && data.invalidPantherIds.length > 0) {
-                const list = data.invalidPantherIds.map(obj => {
-                    const [id, msg] = Object.entries(obj)[0];
-                    return `${id}: ${msg}`;
-                });
-                setInvalidIds(list);
-                setError('Some Panther IDs were invalid.');
-                return;
-            }
-
-            setInvalidIds([]);
-            setError('');
-            alert('Successfully Added Event and Points');
-        
         } catch (error) {
         setError('Network error. Please try again.');
         alert(error)
     }
 };
-
-        setError('Network error. Please try again.');
-        alert(error)
-    }
-};
-
-
     
     return (
         <Container>
@@ -252,37 +211,29 @@ const AddEvent = () => {
                             <option id="_signature" value="Signature">Signature</option>
                             <option id="_industry" value="Industry">Industry</option>
                         </select>
-        </AddEventFormTitle>
-        <form onSubmit={handleSubmit} style={{ width: '100%', justifyContent: 'center' }}>
-            <FormSection>
-                <EventDetailTitle>
-                    <h3 id='event_details_section_label'>Event Details</h3>
-                </EventDetailTitle>
-                <InputContainer>
+
+                    </FormItem>
                     <FormItem>
-                        <label name="eventName"><h4>Event Name:</h4></label>
+                        <label name="Point Value"><h4>Point Value:</h4></label>
                         <Input
-                            placeholder="Event Name"
-                            type="text"
-                            id="event_name"
-                            name="eventName"
-                            value={formData.eventName}
+                            placeholder=""
+                            type="number"
+                            id="point_value"
+                            name="pointValue"
+                            value={formData.pointValue}
                             onChange={handleChange}
                         />
                     </FormItem>
                     <FormItem>
-                        <label name="eventType"><h4>Event Type:</h4></label>
-                        <select id="event_type" name="eventType" value={formData.eventType} onChange={handleChange}>
-                            <option value="">Select Event Type</option>
-                            <option id="_gbm" value="General Body Meeting">General Body Meeting</option>
-                            <option id="_study_hall" value="Study Hall">Study Hall</option>
-                            <option id="_social" value="Social">Social</option>
-                            <option id="_collaboration" value="Student Organization Collaboration">Student Organization Collaboration</option>
-                            <option id="_volunteer" value="Volunteer">Volunteer</option>
-                            <option id="_signature" value="Signature">Signature</option>
-                            <option id="_industry" value="Industry">Industry</option>
-                        </select>
-
+                        <label id='attendee_id_list_label' name="Attendee ID List"><h4>Attendee ID List:</h4></label>
+                        <TextArea
+                            placeholder="Attendee ID List"
+                            type="text"
+                            id="id_list"
+                            name="idList"
+                            value={formData.idList}
+                            onChange={handleChange}
+                        />
                     </FormItem>
                     <FormItem>
                         <label name="Point Value"><h4>Point Value:</h4></label>
@@ -308,53 +259,10 @@ const AddEvent = () => {
                     </FormItem>
 
                 </InputContainer>
-                    </FormItem>
-                    <FormItem>
-                        <label name="Point Value"><h4>Point Value:</h4></label>
-                        <Input
-                            placeholder=""
-                            type="number"
-                            id="point_value"
-                            name="pointValue"
-                            value={formData.pointValue}
-                            onChange={handleChange}
-                        />
-                    </FormItem>
-                    <FormItem>
-                        <label id='attendee_id_list_label' name="Attendee ID List"><h4>Attendee ID List:</h4></label>
-                        <TextArea
-                            placeholder="Attendee ID List"
-                            type="text"
-                            id="id_list"
-                            name="idList"
-                            value={formData.idList}
-                            onChange={handleChange}
-                        />
-                    </FormItem>
-
-                </InputContainer>
-
-                <br />
-                {error && (
-                    <ErrorMessage id='general_error_message'>
                 <br />
                 {error && (
                     <ErrorMessage id='general_error_message'>
                         {error}
-                    </ErrorMessage>
-                )}
-                <br />
-                {invalidIds.length > 0 && (
-                    <ErrorMessage id='error_message'>
-                        The following Panther IDs are invalid: {invalidIds.join(', ')}
-                    </ErrorMessage>
-                )}
-                <SubmitButton type="submit">Submit</SubmitButton>
-            </FormSection>
-        </form>
-
-    </Container>
-)
                     </ErrorMessage>
                 )}
                 <br />
