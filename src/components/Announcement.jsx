@@ -127,13 +127,13 @@ const Announcement = () => {
                 <Dropdown open={dropdownOpen}>
                     {isLoggedIn ? (
                         <>
-                            <DropdownItem to="/addEvent">Add Event</DropdownItem>
-                            <DropdownItem to="#" onClick={handleSignOut}>Sign Out</DropdownItem>
+                            <DropdownItem id="addEvent_button" to="/addEvent">Add Event</DropdownItem>
+                            <DropdownItem id="signout_button" to="#" onClick={handleSignOut}>Sign Out</DropdownItem>
                         </>
                     ) : (
                         <>
-                            <DropdownItem to="/register">Register</DropdownItem>
-                            <DropdownItem to="/login">Login</DropdownItem>
+                            <DropdownItem id="register_button" to="/register">Register</DropdownItem>
+                            <DropdownItem id="login_button" to="/login">Login</DropdownItem>
                         </>
                     )}
                 </Dropdown>
