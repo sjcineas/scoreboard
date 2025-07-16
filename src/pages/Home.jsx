@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
-import Announcement from '../components/Announcement';
+import NavBar from '../components/NavBar';
 
 
 const Container = styled.div`
@@ -54,7 +54,7 @@ const Home = () => {
   return (
     
     <Container>
-      <Announcement/>
+      <NavBar/>
       <Banner>
         <BannerTitle>
           Welcome <br/> to <br/> Scoreboard

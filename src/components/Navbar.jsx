@@ -1,88 +1,145 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Search } from '@material-ui/icons'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Badge } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import FeedIcon from '@mui/icons-material/Feed';
 
 const Container = styled.div`
-    height: 60px;
-
-`
-const Wrapper = styled.div`
-    padding: 10px 20px;
+    height: 50px;
+    background-color: #1E1E24;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
     display: flex;
-    justify-content: space-between;
+    width: 100%;
     align-items: center;
+`;
 
-`
-const Left = styled.div`
-  flex:1;
-  display: flex;
-  align-items: center;
-`
-const Center = styled.div`
-  flex:1;
-  align-items: center;
-  text-align: center;
-`
-const Right = styled.div`
-  flex:1;
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-`
+const LeftContainer = styled.div`
+    height: 100%;
+    background-color: #1E1E24;
+    color: white;
+    padding-left: 2%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    width: 55%;
+    justify-content: right;
+    align-items: center;
+`;
 
-const Language = styled.span`
-  font-size: 14px;
-  cursor:pointer;
-`
+const RightContainer = styled.div`
+    height: 100%;
+    background-color: #1E1E24;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    width: 45%;
+    justify-content: right;
+    align-items: center;
+    position: relative; /* Added for dropdown positioning */
+`;
 
-const SearchContainer  =  styled.div`
-  border: 0.5px solid gray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  padding: 5px;
-`
-const Logo  =  styled.h1`
+const NewLink = styled(Link)`
+    color: white;
+    &:visited{
+      text-decoration:none;
+    }
+    &:link { text-decoration: none; }
+    &:visited { text-decoration: none; }
+    &:hover { text-decoration: none; }
+    &:active { text-decoration: none; }
+`;
 
-`
-const Input  =  styled.input`
-  border: none;
-`
-const MenuItem = styled.div`
-  font-style: 14px;
-  cursor: pointer;
-  margin-left: 25px;
-`
+const Icon = styled.div`
+    padding-left: 3%;
+    padding-right: 3%;
+`;
 
+const IconLink = styled(Link)`
+    color: white;
+`;
 
-const Navbar = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <Language>EN</Language>
-          <SearchContainer>
-            <Input/>
-            <Search style = {{color:"gray", fontSize: 16}}/>
-          </SearchContainer>
-        </Left>
-        <Center>
-          <Logo>.LAMA</Logo>
-        </Center>
-        <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
-          <MenuItem>
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCartIcon/>
-            </Badge>
-          </MenuItem>
-        </Right>
-      </Wrapper>
-    </Container>
-  )
-}
+const Dropdown = styled.div`
+    display: ${({ open }) => (open ? 'block' : 'none')}; /* Ensure display toggles based on state */
+    position: absolute;
+    top: 50px; /* Adjust top position */
+    right: 0;
+    background-color: #1E1E24;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000; /* Ensure dropdown is above other elements */
+    min-width: 160px;
+`;
 
-export default Navbar
+const DropdownItem = styled(Link)`
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    &:hover {
+        background-color: #333;
+    }
+`;
+
+const NavBar = () => {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const navigate = useNavigate(); 
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
+    
+    const handleSignOut = () => {
+        localStorage.removeItem('token'); 
+        localStorage.removeItem('user'); 
+        console.log('User signed out');
+        setIsLoggedIn(false);
+        navigate('/'); 
+        window.location.reload();
+
+    };
+
+    return (
+        <Container>
+            <LeftContainer>
+                <NewLink to="/">SCOREBOARD</NewLink>
+            </LeftContainer>
+            <RightContainer>
+                <Icon>
+                  <IconLink to="/membershipform">
+                    <FeedIcon id="FeedIcon" style={{ paddingLeft: '3%', paddingRight: '3%' }} />
+                  </IconLink>
+                </Icon>
+                <Icon onClick={toggleDropdown}>
+                    <AccountBoxIcon id="AccountBoxIcon" style={{ cursor: 'pointer' }} />
+                </Icon>
+                <Dropdown open={dropdownOpen}>
+                    {isLoggedIn ? (
+                        <>
+                            <DropdownItem to="/addEvent">Add Event</DropdownItem>
+                            <DropdownItem to="#" onClick={handleSignOut}>Sign Out</DropdownItem>
+                        </>
+                    ) : (
+                        <>
+                            <DropdownItem to="/register">Register</DropdownItem>
+                            <DropdownItem to="/login">Login</DropdownItem>
+                        </>
+                    )}
+                </Dropdown>
+            </RightContainer>
+        </Container>
+    );
+};
+
+export default NavBar;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import Announcement from '../components/Announcement';
+import NavBar from '../components/NavBar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -168,7 +168,7 @@ const Login = () => {
     
     return (
         <Container>
-            <Announcement />
+            <NavBar />
             <Banner>
                 <BannerContainer>
                     <ImageContainer>

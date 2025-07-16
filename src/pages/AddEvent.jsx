@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios';
-import Announcement from '../components/Announcement';
+import NavBar from '../components/NavBar';
 
 const Container = styled.div`
     display: flex;
@@ -159,7 +159,7 @@ const AddEvent = () => {
     
     return (
         <Container>
-            <Announcement/>
+            <NavBar/>
             <AddEventFormTitle>
                 <ImageContainer>
                     <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
