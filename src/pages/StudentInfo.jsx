@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react'
-import Announcement from '../components/Announcement'
+import NavBar from '../components/NavBar'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
@@ -129,7 +129,7 @@ const StudentInfo = () => {
     if (!data || data.length === 0) {
         return (
             <>
-                <Announcement />
+                <NavBar />
                 <MessageContainer>No data found</MessageContainer>
             </>
         );
@@ -137,7 +137,7 @@ const StudentInfo = () => {
     
     return(
         <Container>
-            <Announcement/>
+            <NavBar/>
             <Banner>
                 <BannerContainer>
                     <ImageContainer>

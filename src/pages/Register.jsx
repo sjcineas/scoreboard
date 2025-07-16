@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Announcement from '../components/Announcement';
+import NavBar from '../components/NavBar';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -149,7 +149,7 @@ const Register = () => {
 
     return (
      <Container>
-        <Announcement/>
+        <NavBar/>
         <Banner>
         <BannerContainer>
                 <ImageContainer>
