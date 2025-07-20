@@ -2,12 +2,13 @@ package Membership;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+
 
 public class MembershipForm {
     WebDriver driver;
@@ -26,6 +27,12 @@ public class MembershipForm {
 
         try {
             Thread.sleep(3000);
+            WebElement banner= driver.findElement(By.id("banner"));
+            WebElement nsbeLogo= banner.findElement(By.id("nsbe_logo"));
+            WebElement PageTitle= banner.findElement(By.id("page_title"));
+            //validation for banner
+            Assert.assertTrue(nsbeLogo.isDisplayed());
+            Assert.assertEquals(PageTitle.getText(),"Membership Stat Sheet");
             //retrieve elements
             WebElement pageTitle = driver.findElement(By.id("page_title"));
             Assert.assertEquals(pageTitle.getText(), "Membership Form");

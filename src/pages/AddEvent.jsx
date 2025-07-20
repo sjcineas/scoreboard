@@ -174,8 +174,8 @@ const AddEvent = () => {
         <Container>
             <NavBar/>
             <AddEventFormTitle>
-                <ImageContainer>
-                    <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
+                <ImageContainer id="banner">
+                    <Image id="nsbe_logo" src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                 </ImageContainer>
             <TitleContainer>
                 <Title id='page_title'>Event Management</Title>

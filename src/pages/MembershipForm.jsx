@@ -157,10 +157,10 @@ const MembershipForm = () => {
     
     return (
         <Container>
-            <NavBar/>
-            <MembershipFormTitle>
+            <Announcement/>
+            <MembershipFormTitle id="banner">
                 <ImageContainer>
-                    <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
+                    <Image id="nsbe_logo" src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                 </ImageContainer>
             <TitleContainer>
                 <Title id = 'page_title'>Membership Form</Title>
