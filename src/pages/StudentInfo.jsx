@@ -130,7 +130,7 @@ const StudentInfo = () => {
         return (
             <>
                 <NavBar />
-                <MessageContainer>No data found</MessageContainer>
+                <MessageContainer id='No data'>No data found</MessageContainer>
             </>
         );
     }
@@ -138,10 +138,10 @@ const StudentInfo = () => {
     return(
         <Container>
             <NavBar/>
-            <Banner>
-                <BannerContainer>
+            <Banner id="banner">
+                <BannerContainer >
                     <ImageContainer>
-                        <Image src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
+                        <Image id="nsbe_logo" src="https://www.engr.ucr.edu/sites/default/files/styles/form_preview/public/nsbe_logo.png?itok=R-84CoI9" />
                     </ImageContainer>
                     <PageTitle id='page_title'>
                         Student Information
@@ -149,8 +149,8 @@ const StudentInfo = () => {
                 </BannerContainer>
             </Banner>
             <PageContent>
-              <Table>
-                        <TableLabels>
+              <Table id='Event table'>
+                        <TableLabels> 
                                 <TableLabelTitle>Event Name</TableLabelTitle>
                                 <TableLabelTitle>Event Type</TableLabelTitle>
                                 <TableLabelTitle>Event Value</TableLabelTitle>
