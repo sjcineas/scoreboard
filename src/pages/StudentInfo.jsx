@@ -129,7 +129,7 @@ const StudentInfo = () => {
     if (!data || data.length === 0) {
         return (
             <>
-                <Announcement />
+                <NavBar />
                 <MessageContainer id='No data'>No data found</MessageContainer>
             </>
         );
@@ -137,7 +137,7 @@ const StudentInfo = () => {
     
     return(
         <Container>
-            <Announcement/>
+            <NavBar/>
             <Banner id="banner">
                 <BannerContainer >
                     <ImageContainer>
