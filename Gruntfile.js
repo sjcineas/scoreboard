@@ -2,37 +2,51 @@ const fs = require('fs');
 const axios = require('axios');
 const { exec } = require('child_process');
 
-async function createTable(grunt, sqlQuery){
-    const db = require('./server/config/db').promise();
-    try{
-        await db.query(sqlQuery)
-        grunt.log.write('Table created successfully or already existed.\n').ok();
+const db = require('./server/config/db');
 
-    }catch(err){
-        grunt.log.error('Failed to execute query to create table:\n', sqlQuery, '\n');
-        grunt.log.error(err.message);
-    }finally{
-        db.end()
-    };
+// Helper function to close the database connection
+async function closeConnection() {
+    try {
+        await db.promise.end();
+    } catch (err) {
+        console.error('Error closing database connection:', err);
+    }
 }
-async function deleteTables(grunt, sqlQuery){
-    const db = require('./server/config/db').promise();
-    try{
-        await db.query(sqlQuery)
-        grunt.log.write('Table droppped successfully.\n').ok();
 
-    }catch(err){
-        grunt.log.error('Failed to execute query to drop table:\n', sqlQuery, '\n');
-        grunt.log.error(err.message);
-        throw err;
-    }finally{
-        db.end()
-    };
+async function createTable(grunt, sqlQuery, tableName) {
+    try {
+        await db.promise.query(sqlQuery);
+        grunt.log.write(`Table ${tableName} created successfully or already existed.\n`).ok();
+    } catch (err) {
+        if (err.code === 'ER_TABLE_EXISTS_ERROR') {
+            grunt.log.write(`Table ${tableName} already exists.\n`).ok();
+        } else {
+            grunt.log.error(`Failed to create table ${tableName}: ${err.message}`);
+            throw err; // Rethrow non-existence errors
+        }
+    }
 }
+
+async function deleteTables(grunt, sqlQuery, tableName) {
+    try {
+        await db.promise.query(sqlQuery);
+        grunt.log.write(`Table ${tableName} dropped successfully.\n`).ok();
+    } catch (err) {
+        if (err.code === 'ER_BAD_TABLE_ERROR') {
+            grunt.log.write(`Table ${tableName} does not exist.\n`).ok();
+        } else {
+            grunt.log.error(`Failed to drop table ${tableName}: ${err.message}`);
+            throw err; // Rethrow non-existence errors
+        }
+    }
+}
+
 module.exports = function(grunt) {
     grunt.initConfig({});
-    grunt.registerTask('create-tables', function(){
-        done = this.async();
+
+    grunt.registerTask('create-tables', async function(){
+        const done = this.async();
+        
         const createRegisterTable = `
             CREATE TABLE IF NOT EXISTS register (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -40,7 +54,8 @@ module.exports = function(grunt) {
                 username VARCHAR(50),
                 password VARCHAR(50)
             );
-        `
+        `;
+        
         const createMembershipTable = `
             CREATE TABLE IF NOT EXISTS membership (
                 firstName varchar(255),
@@ -54,9 +69,9 @@ module.exports = function(grunt) {
                 phoneNumber varchar(20),
                 schoolStatus varchar(50),
                 points int
-
             );
-        `
+        `;
+        
         const createEventsTable = `
             CREATE TABLE IF NOT EXISTS events (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -64,7 +79,8 @@ module.exports = function(grunt) {
                 eventType VARCHAR(50),
                 eventValue INT
             );
-        `
+        `;
+        
         const createAttendanceTable = `
             CREATE TABLE IF NOT EXISTS attendance (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -73,28 +89,58 @@ module.exports = function(grunt) {
                 eventType VARCHAR(50),
                 eventValue INT
             );
-        `
-        const promises = [
-            createTable(grunt, createRegisterTable),
-            createTable(grunt, createMembershipTable),
-            createTable(grunt, createEventsTable),
-            createTable(grunt, createAttendanceTable),
-        ]
-        Promise.allSettled(promises)
-        .then((results) => {
+        `;
+
+        try {
+            const promises = [
+                createTable(grunt, createRegisterTable, 'register'),
+                createTable(grunt, createMembershipTable, 'membership'),
+                createTable(grunt, createEventsTable, 'events'),
+                createTable(grunt, createAttendanceTable, 'attendance'),
+            ];
+            
+            const results = await Promise.allSettled(promises);
+            
             results.forEach((result, index) => {
                 if (result.status === "fulfilled") {
-                  grunt.log.ok(`Table ${index + 1} created successfully.`);
+                    grunt.log.ok(`Table ${index + 1} created successfully.`);
                 } else {
-                  grunt.log.error(`Error in Table ${index + 1}:`, result.reason);
+                    grunt.log.error(`Error in Table ${index + 1}:`, result.reason);
                 }
-              });
-      
+            });
+            
+            await closeConnection();
             done();
-        });
-
-        
+        } catch (error) {
+            grunt.log.error('Error in create-tables task:', error);
+            await closeConnection();
+            done(false);
+        }
     });
+
+    grunt.registerTask('drop-tables', async function(){
+        const done = this.async();
+        const dropTables = [
+            { sql: 'DROP TABLE IF EXISTS attendance', name: 'attendance' },
+            { sql: 'DROP TABLE IF EXISTS events', name: 'events' },
+            { sql: 'DROP TABLE IF EXISTS membership', name: 'membership' },
+            { sql: 'DROP TABLE IF EXISTS register', name: 'register' }
+        ];
+
+        try {
+            for (const { sql, name } of dropTables) {
+                await deleteTables(grunt, sql, name);
+            }
+            
+            await closeConnection();
+            done();
+        } catch (error) {
+            grunt.log.error('Error in drop-tables task:', error);
+            await closeConnection();
+            done(false);
+        }
+    });
+
     grunt.registerTask('seed-data', async function(){
         const done = this.async();
         // create members
