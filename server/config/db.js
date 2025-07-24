@@ -3,73 +3,60 @@ const path = require('path');
 require('dotenv').config();
 
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT
-  });
-  
-
-db.connect(err => {
-    if(err) {
-        console.log('Unable to connect to MYSQL: ', err)
-    }else{
-        console.log('!!! MYSQL Connection Successful !!!')
-    }
+    port: process.env.DB_PORT,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
-function createTables(){
-    const queries = [
-        `CREATE TABLE IF NOT EXISTS register (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nsbeid VARCHAR(50),
-            role VARCHAR(50),
-            username VARCHAR(50),
-            password VARCHAR(255)
-        );`,
+// Add promise support
+const poolPromise = pool.promise();
 
-        `CREATE TABLE IF NOT EXISTS membership (
-            firstName VARCHAR(255),
-            lastName VARCHAR(255),
-            major VARCHAR(255),
-            pantherId CHAR(7) PRIMARY KEY,
-            fiuEmail VARCHAR(255),
-            personalEmail VARCHAR(255),
-            gradSession VARCHAR(6),
-            gradYear INT,
-            phoneNumber VARCHAR(20),
-            schoolStatus VARCHAR(50),
-            points INT
-        );`,
+// Test the connection using the pool's built-in test
+pool.getConnection((err, connection) => {
+    if (err) {
+        console.error('Error testing MySQL connection:', err);
+        return;
+    }
+    console.log('!!! MySQL Connection Pool Initialized Successfully !!!');
+    connection.release();
+});
 
-        `CREATE TABLE IF NOT EXISTS events (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            eventName VARCHAR(50),
-            eventType VARCHAR(50),
-            eventValue INT
-        );`,
+// Create a wrapper that supports both callback and promise styles
+const db = {
+    pool,
+    promise: poolPromise,
+    
+    // Callback-based methods for backward compatibility
+    getConnection: (callback) => {
+        if (typeof callback === 'function') {
+            return pool.getConnection(callback);
+        } else {
+            return poolPromise.getConnection();
+        }
+    },
+    
+    query: (sql, values, callback) => {
+        // Handle (sql, callback)
+        if (typeof values === 'function') {
+            return pool.query(sql, values);
+        }
 
-        `CREATE TABLE IF NOT EXISTS attendance (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            pantherId CHAR(7),
-            eventName VARCHAR(50),
-            eventType VARCHAR(50),
-            eventValue INT,
-            FOREIGN KEY (pantherId) REFERENCES membership(pantherId) ON DELETE SET NULL
-        );`
-    ];
+        // Handle (sql, values, callback)
+        if (typeof callback === 'function') {
+            return pool.query(sql, values, callback);
+        }
 
-    queries.forEach((query) => {
-        db.queries(query, (err)=>{
-            if (err)
-                console.error('Unable to create table: ', err)
-        });
-    });
+        // Handle (sql) or (sql, values) with promises
+        return poolPromise.query(sql, values);
 
-    console.log('!!! Successfully Created Tables !!!')
+    }
+};
 
-}
 
 module.exports = db;
