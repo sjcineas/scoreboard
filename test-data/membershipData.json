@@ -10,7 +10,8 @@
         "gradYear": 2026,
         "phoneNumber": "7860002222",
         "schoolStatus": "Sophomore",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Jordan",
@@ -23,7 +24,8 @@
         "gradYear": 2025,
         "phoneNumber": "7860001111",
         "schoolStatus": "Sophomore",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Aaliyah",
@@ -36,7 +38,8 @@
         "gradYear": 2027,
         "phoneNumber": "7860003333",
         "schoolStatus": "Freshman",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Elijah",
@@ -49,7 +52,8 @@
         "gradYear": 2026,
         "phoneNumber": "7860004444",
         "schoolStatus": "Junior",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Sophia",
@@ -62,7 +66,8 @@
         "gradYear": 2025,
         "phoneNumber": "7860005555",
         "schoolStatus": "Senior",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Noah",
@@ -75,7 +80,8 @@
         "gradYear": 2027,
         "phoneNumber": "7860006666",
         "schoolStatus": "Sophomore",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Isabella",
@@ -88,7 +94,8 @@
         "gradYear": 2026,
         "phoneNumber": "7860007777",
         "schoolStatus": "Junior",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Lucas",
@@ -101,7 +108,8 @@
         "gradYear": 2025,
         "phoneNumber": "7860008888",
         "schoolStatus": "Senior",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Maya",
@@ -114,7 +122,8 @@
         "gradYear": 2026,
         "phoneNumber": "7860009999",
         "schoolStatus": "Junior",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Ethan",
@@ -127,7 +136,8 @@
         "gradYear": 2027,
         "phoneNumber": "7860010000",
         "schoolStatus": "Sophomore",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Zara",
@@ -140,7 +150,8 @@
         "gradYear": 2025,
         "phoneNumber": "7860011111",
         "schoolStatus": "Senior",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     },
     {
         "firstName": "Miles",
@@ -153,6 +164,7 @@
         "gradYear": 2026,
         "phoneNumber": "7860012222",
         "schoolStatus": "Junior",
-        "points": 0
+        "points": 0,
+        "linkedin": ""
     }
 ]

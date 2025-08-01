@@ -50,44 +50,45 @@ module.exports = function(grunt) {
         const createRegisterTable = `
             CREATE TABLE IF NOT EXISTS register (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                email VARCHAR(50),
-                username VARCHAR(50),
-                password VARCHAR(50)
+                email VARCHAR(50) not null,
+                username VARCHAR(50) not null,
+                password VARCHAR(50) not null
             );
         `;
         
         const createMembershipTable = `
             CREATE TABLE IF NOT EXISTS membership (
-                firstName varchar(255),
-                lastName varchar(255),
-                major varchar(255),
+                firstName varchar(255) not null,
+                lastName varchar(255) not null,
+                major varchar(255) not null,
                 pantherId char(7) PRIMARY KEY,
-                fiuEmail varchar(255),
-                personalEmail varchar(255),
-                gradSession varchar(6),
-                gradYear int,
-                phoneNumber varchar(20),
-                schoolStatus varchar(50),
-                points int
+                fiuEmail varchar(255) not null,
+                personalEmail varchar(255) not null,
+                gradSession varchar(6) not null,
+                gradYear int not null,
+                phoneNumber varchar(20) not null,
+                schoolStatus varchar(50) not null,
+                points int,
+                linkedin varchar(255)
             );
         `;
         
         const createEventsTable = `
             CREATE TABLE IF NOT EXISTS events (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                eventName VARCHAR(50),
-                eventType VARCHAR(50),
-                eventValue INT
+                eventName VARCHAR(50) not null,
+                eventType VARCHAR(50) not null,
+                eventValue INT not null
             );
         `;
         
         const createAttendanceTable = `
             CREATE TABLE IF NOT EXISTS attendance (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                pantherId CHAR(7), -- No FOREIGN KEY constraint
-                eventName VARCHAR(50),
-                eventType VARCHAR(50),
-                eventValue INT
+                pantherId CHAR(7) not null, -- No FOREIGN KEY constraint
+                eventName VARCHAR(50) not null,
+                eventType VARCHAR(50) not null,
+                eventValue INT not null
             );
         `;
 
