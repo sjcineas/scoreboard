@@ -34,7 +34,8 @@
     "launch": "concurrently \"npm run server\" \"npm run start\"",
     "client": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test:react": "react-scripts test",
+    "test:jasmine": "jasmine",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,6 +62,10 @@
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-uglify": "~0.5.0",
-    "react-router-dom": "^6.21.1"
+    "jasmine": "^5.9.0",
+    "jasmine-core": "^5.9.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "react-router-dom": "^6.21.1",
+    "supertest": "^7.1.4"
   }
 }
