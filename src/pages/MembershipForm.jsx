@@ -102,7 +102,7 @@ const SchoolStatusInputContainer = styled.div`
 const CheckButtons = styled.input`
     width: 100%;
     display: block;
-    justify-content: center;    
+    justify-content: center;
 `;
 
 const SubmitButton = styled.button`
@@ -127,14 +127,15 @@ const MembershipForm = () => {
         gradSession: '',
         gradYear: '',
         phoneNumber: '',
-        schoolStatus: ''
+        schoolStatus: '',
+        linkedin: ''
     });
 
     const handleChange = (e) =>{
         const {name, value} = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: value 
+            [name]: value
         }));
     }
 
@@ -209,6 +210,11 @@ const MembershipForm = () => {
                             <label id="phone_number_label" name="phoneNumber"><h4>Phone Number:</h4></label>
                             <Input placeholder="Phone Number" type="text" id="phone_number_input" name="phoneNumber" onChange={handleChange}/>
                         </FormItem>
+                        <FormItem>
+                            <label id="linkedin_input"><h4>LinkedIn URL:</h4></label>
+                            <Input
+                            id="linkedin_input" name="linkedin" type="url" placeholder="https://www.linkedin.com/in/username" onChange={handleChange}/>
+                        </FormItem>
                     </InputContainer>
             
                     <br/>
@@ -233,4 +239,4 @@ const MembershipForm = () => {
         </Container>
     )
 }
-export default MembershipForm 
+export default MembershipForm

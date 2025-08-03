@@ -115,29 +115,31 @@ public class MembershipForm {
     // 8. Typing works in all personal fields
     @Test(priority = 7)
     void typingIntoAllFields() {
-        driver.findElement(By.id("first_name")).sendKeys("Sam");
-        driver.findElement(By.id("last_name")).sendKeys("Howard");
-        driver.findElement(By.id("major")).sendKeys("CS");
-        driver.findElement(By.id("panther_id")).sendKeys("1234567");
-        driver.findElement(By.id("fiu_email")).sendKeys("sam@fiu.edu");
-        driver.findElement(By.id("personal_email")).sendKeys("sam@gmail.com");
-        driver.findElement(By.id("grad_session")).sendKeys("Fall");
-        driver.findElement(By.id("grad_year")).sendKeys("2027");
-        driver.findElement(By.id("phone")).sendKeys("5551234567");
-        Assert.assertEquals(driver.findElement(By.id("first_name")).getAttribute("value"), "Sam");
+        WebElement first = driver.findElement(By.id("first_name_input")); //  grabs the element
+        driver.findElement(By.id("first_name_input")).sendKeys("Sam");
+        driver.findElement(By.id("last_name_input")).sendKeys("Howard");
+        driver.findElement(By.id("major_input")).sendKeys("CS");
+        driver.findElement(By.id("panther_id_input")).sendKeys("1234567");
+        driver.findElement(By.id("fiu_email_input")).sendKeys("sam@fiu.edu");
+        driver.findElement(By.id("personal_email_input")).sendKeys("sam@gmail.com");
+        driver.findElement(By.id("grad_session_input")).sendKeys("Fall");
+        driver.findElement(By.id("grad_year_input")).sendKeys("2027");
+        driver.findElement(By.id("phone_number_input")).sendKeys("5551234567");
+        Assert.assertEquals(first.getDomProperty("value"), "Sam");
+        Assert.assertEquals(driver.findElement(By.id("first_name_input")).getAttribute("value"), "Sam");
     }
 
     // 9. Submit button visible and styled
     @Test(priority = 8)
     void submitButtonVisible() {
-        WebElement btn = driver.findElement(By.id("submit_button"));
+        WebElement btn = driver.findElement(By.id("submit_form_label"));
         Assert.assertTrue(btn.isDisplayed() && btn.isEnabled());
     }
 
     // 10. Success alert appears after valid submission
     @Test(priority = 9)
     void successAlertOnValidSubmit() {
-        driver.findElement(By.id("submit_button")).click();
+        driver.findElement(By.id("submit_form_label")).click();
         Alert a = driver.switchTo().alert();
         Assert.assertTrue(a.getText().toLowerCase().contains("success"));
         a.accept();
@@ -147,7 +149,7 @@ public class MembershipForm {
     @Test(priority = 10)
     void errorAlertOnMissingField() {
         driver.navigate().refresh();                     // clear the form quickly
-        driver.findElement(By.id("submit_button")).click();
+        driver.findElement(By.id("submit_form_label")).click();
         Alert a = driver.switchTo().alert();
         Assert.assertTrue(a.getText().toLowerCase().contains("error"));
         a.accept();
