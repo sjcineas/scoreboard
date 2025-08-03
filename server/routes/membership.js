@@ -16,7 +16,11 @@ router.get('/data/membership', (req, res) => {
 
 router.post('/membershipform', (req, res) => {
     const sessions = ['FALL', 'SPRING', 'SUMMER', 'WINTER', 'AUTUMN'];
-    const { firstName, lastName, major, pantherId, fiuEmail, personalEmail, gradSession, gradYear, phoneNumber, schoolStatus } = req.body;
+    const { firstName, lastName, major, pantherId, fiuEmail, personalEmail, gradSession, gradYear, phoneNumber, schoolStatus, linkedin } = req.body;
+
+    if (linkedin && !/^https?:\/\/(www\.)?linkedin\.com\/.+/i.test(linkedin)) {
+    return res.status(400).json({ error: 'Invalid LinkedIn URL' });
+    }
 
     if (!firstName || !lastName || !major || !personalEmail || !fiuEmail || !pantherId || !gradSession || !gradYear || !schoolStatus) {
         return res.status(400).json({ error: 'All fields are required' });
