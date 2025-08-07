@@ -68,8 +68,8 @@ module.exports = function(grunt) {
                 gradYear int not null,
                 phoneNumber varchar(20) not null,
                 schoolStatus varchar(50) not null,
-                points int,
-                linkedin varchar(255)
+                linkedin varchar(255),
+                points int
             );
         `;
         
@@ -160,7 +160,8 @@ module.exports = function(grunt) {
                     gradSession: member.gradSession,
                     gradYear: member.gradYear,
                     phoneNumber: member.phoneNumber,
-                    schoolStatus: member.schoolStatus
+                    schoolStatus: member.schoolStatus,
+                    linkedin: member.linkedin
                 }
                 //response not used (or yet needed)
                 const response = await axios.post('http://scoreboard-server-env.eba-meu7gxv4.us-east-2.elasticbeanstalk.com/membershipform', formData);
