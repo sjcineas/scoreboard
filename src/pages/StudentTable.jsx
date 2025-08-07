@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -129,14 +130,19 @@ const StudentTable = () => {
       "gradYear",
       "phoneNumber",
       "schoolStatus",
+      "linkedin",
       "points",
     ];
 
     keys.forEach((key) => {
-      widths[key] = Math.max(
-        ...data.map((item) => item[key]?.length || 0),
-        key.length
-      ) * 12; // Approximate width per character
+      if(key==="linkedin"){
+        widths[key]=5
+      }else{
+        widths[key] = Math.max(
+            ...data.map((item) => item[key]?.length || 0),
+            key.length
+        ) * 12; // Approximate width per character
+      }
     });
 
     setColumnWidths(widths);
@@ -193,6 +199,7 @@ const StudentTable = () => {
           <HeaderCell style={{ minWidth: columnWidths.gradYear }}>Grad Year</HeaderCell>
           <HeaderCell style={{ minWidth: columnWidths.phoneNumber }}>Phone Number</HeaderCell>
           <HeaderCell style={{ minWidth: columnWidths.schoolStatus }}>School Status</HeaderCell>
+          <HeaderCell style={{ minWidth: columnWidths.linkedin }}>LinkedIn</HeaderCell>
           <HeaderCell style={{ minWidth: columnWidths.points }}>Points</HeaderCell>
         </TableHeader>
         {students.map((student, index) => (
@@ -207,6 +214,9 @@ const StudentTable = () => {
             <Cell minWidth={columnWidths.gradYear}>{student.gradYear}</Cell>
             <Cell minWidth={columnWidths.phoneNumber}>{student.phoneNumber}</Cell>
             <Cell minWidth={columnWidths.schoolStatus}>{student.schoolStatus}</Cell>
+            <Cell minWidth={columnWidths.linkedin}>
+                {student.linkedin ? <Link to={student.linkedin}>click</Link> : "empty"}
+            </Cell>
             <Cell minWidth={columnWidths.points}>{student.points}</Cell>
           </Row>
         ))}
