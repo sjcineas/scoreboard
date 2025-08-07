@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -131,6 +132,7 @@ const StudentTable = () => {
       "phoneNumber",
       "schoolStatus",
       "linkedin",
+      "linkedin",
       "points",
     ];
 
@@ -203,6 +205,7 @@ const StudentTable = () => {
           <HeaderCell style={{ minWidth: columnWidths.phoneNumber }}>Phone Number</HeaderCell>
           <HeaderCell style={{ minWidth: columnWidths.schoolStatus }}>School Status</HeaderCell>
           <HeaderCell style={{ minWidth: columnWidths.linkedin }}>LinkedIn</HeaderCell>
+          <HeaderCell style={{ minWidth: columnWidths.linkedin }}>LinkedIn</HeaderCell>
           <HeaderCell style={{ minWidth: columnWidths.points }}>Points</HeaderCell>
         </TableHeader>
         {students.map((student, index) => (
@@ -217,6 +220,9 @@ const StudentTable = () => {
             <Cell minWidth={columnWidths.gradYear}>{student.gradYear}</Cell>
             <Cell minWidth={columnWidths.phoneNumber}>{student.phoneNumber}</Cell>
             <Cell minWidth={columnWidths.schoolStatus}>{student.schoolStatus}</Cell>
+            <Cell minWidth={columnWidths.linkedin}>
+                {student.linkedin ? <Link to={student.linkedin}>click</Link> : "empty"}
+            </Cell>
             <Cell minWidth={columnWidths.linkedin}>
                 {student.linkedin ? <Link to={student.linkedin}>click</Link> : "empty"}
             </Cell>
