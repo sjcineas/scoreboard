@@ -5,6 +5,7 @@ import Register from "./pages/Register"
 import MembershipForm from "./pages/MembershipForm"
 import StudentInfo from "./pages/StudentInfo"
 import AddEvent from "./pages/AddEvent";
+import StudentTable from './pages/StudentTable';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/MembershipForm" element={<MembershipForm/>}/>
         <Route path="/StudentInfo/:pantherId" element={<StudentInfo/>}/>
         <Route path="/addEvent" element={<AddEvent/>}/>
+        <Route path="/MembershipData" element={<StudentTable />} />
       </Routes>  
     </BrowserRouter>
   );
