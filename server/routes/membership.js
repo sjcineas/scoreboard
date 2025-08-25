@@ -18,9 +18,14 @@ router.post('/membershipform', (req, res) => {
     const sessions = ['FALL', 'SPRING', 'SUMMER', 'WINTER', 'AUTUMN'];
     const { firstName, lastName, major, pantherId, fiuEmail, personalEmail, gradSession, gradYear, phoneNumber, schoolStatus, linkedin } = req.body;
 
-    if (linkedin && !/^https?:\/\/(www\.)?linkedin\.com\/.+/i.test(linkedin)) {
-    return res.status(400).json({ error: 'Invalid LinkedIn URL' });
-    }
+    if (linkedin && linkedin.trim() !== "") {
+        const linkedinRegex = /^https?:\/\/(www\.)?linkedin\.com\/(in|company|school)\/[a-zA-Z0-9_-]+(\/[a-zA-Z0-9_-]+)?(\?.*)?$/i;
+      
+        if (!linkedinRegex.test(linkedin)) {
+          return res.status(400).json({ error: 'Invalid LinkedIn URL' });
+        }
+      }
+      
 
     if (!firstName || !lastName || !major || !personalEmail || !fiuEmail || !pantherId || !gradSession || !gradYear || !schoolStatus) {
         return res.status(400).json({ error: 'All fields are required' });
@@ -44,9 +49,9 @@ router.post('/membershipform', (req, res) => {
         return res.status(400).json({ error: 'Invalid graduation year' });
     }
 
-    const sql = `INSERT INTO membership (firstName, lastName, major, pantherId, fiuEmail, personalEmail, gradSession, gradYear, phoneNumber, schoolStatus, points) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)`;
+    const sql = `INSERT INTO membership (firstName, lastName, major, pantherId, fiuEmail, personalEmail, gradSession, gradYear, phoneNumber, schoolStatus, linkedin, points) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)`;
 
-    db.query(sql, [firstName, lastName, major, pantherId, fiuEmail, personalEmail, gradSession.toUpperCase(), gradYear, phoneNumber, schoolStatus], (err, result) => {
+    db.query(sql, [firstName, lastName, major, pantherId, fiuEmail, personalEmail, gradSession.toUpperCase(), gradYear, phoneNumber, schoolStatus, linkedin], (err, result) => {
         if (err) {
             console.error(err); 
             return res.status(500).json({ error: 'Database error' });

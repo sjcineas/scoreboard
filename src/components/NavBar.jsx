@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import FeedIcon from '@mui/icons-material/Feed';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const Container = styled.div`
     height: 50px;
@@ -44,19 +45,6 @@ const RightContainer = styled.div`
     align-items: center;
     position: relative; /* Added for dropdown positioning */
 `;
-const ThirdContainer = styled.div`
-height: 100%;
-    background-color: #1E1E24;
-    color: white;
-    padding-left: 2%;
-    text-align: center;
-    font-weight: bold;
-    font-size: 20px;
-    display: flex;
-    width: 55%;
-    justify-content: left ;
-    align-items: center;
-`
 
 const NewLink = styled(Link)`
     color: white;
@@ -99,22 +87,6 @@ const DropdownItem = styled(Link)`
     }
 `;
 
-const StudentDetails = styled.button`
-    background: #92140C;
-    color: #fff;
-    border: none;
-    padding: 8px 32px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.2s;
-    &:hover {
-    background-color: #b71f10;
-    }
-`;
-
-//password is p@$$word username is user
 const NavBar = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const navigate = useNavigate(); 
@@ -138,9 +110,6 @@ const NavBar = () => {
         window.location.reload();
 
     };
-    const handleAction = () => {
-        window.open('https://youtu.be/xvFZjo5PgG0?si=X2U6MSpJwe99c8jK');
-    };
 
     return (
         <Container>
@@ -149,10 +118,17 @@ const NavBar = () => {
             </LeftContainer>
             <RightContainer>
                 <Icon>
-                <IconLink to="/membershipform">
-                    <FeedIcon id="FeedIcon" style={{ paddingLeft: '3%', paddingRight: '3%' }} />
-                </IconLink>
+                    <IconLink to="/membershipform">
+                        <FeedIcon id="FeedIcon" style={{ paddingLeft: '3%', paddingRight: '3%' }} />
+                    </IconLink>
                 </Icon>
+                {isLoggedIn && (
+                    <Icon>
+                        <IconLink to="/MembershipData">
+                            <BarChartIcon id="AnalyticsIcon" style={{ paddingLeft: '3%', paddingRight: '3%' }} />
+                        </IconLink>
+                    </Icon>
+                )}
                 <Icon onClick={toggleDropdown}>
                     <AccountBoxIcon id="AccountBoxIcon" style={{ cursor: 'pointer' }} />
                 </Icon>
@@ -170,14 +146,6 @@ const NavBar = () => {
                     )}
                 </Dropdown>
             </RightContainer>
-        {isLoggedIn && (
-            <ThirdContainer>
-                <StudentDetails
-                    id="StudentDetails" onClick={handleAction}>
-                </StudentDetails>
-            </ThirdContainer>
-        )}
-
         </Container>
     );
 };

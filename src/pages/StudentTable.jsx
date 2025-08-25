@@ -135,13 +135,16 @@ const StudentTable = () => {
     ];
 
     keys.forEach((key) => {
-      if(key==="linkedin"){
-        widths[key]=5
-      }else{
-        widths[key] = Math.max(
-            ...data.map((item) => item[key]?.length || 0),
-            key.length
-        ) * 12; // Approximate width per character
+      const contentWidth = Math.max(
+        ...data.map((item) => item[key]?.length || 0),
+        key.length
+      ) * 12; // Approximate width per character
+      
+      if (key === "linkedin") {
+        // Use the larger of the calculated width or the width of the word 'linkedin' * 12
+        widths[key] = 'linkedin'.length * 12;
+      } else {
+        widths[key] = contentWidth;
       }
     });
 
