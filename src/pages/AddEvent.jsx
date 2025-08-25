@@ -235,29 +235,6 @@ const AddEvent = () => {
                             onChange={handleChange}
                         />
                     </FormItem>
-                    <FormItem>
-                        <label name="Point Value"><h4>Point Value:</h4></label>
-                        <Input
-                            placeholder=""
-                            type="number"
-                            id="point_value"
-                            name="pointValue"
-                            value={formData.pointValue}
-                            onChange={handleChange}
-                        />
-                    </FormItem>
-                    <FormItem>
-                        <label id='attendee_id_list_label' name="Attendee ID List"><h4>Attendee ID List:</h4></label>
-                        <TextArea
-                            placeholder="Attendee ID List"
-                            type="text"
-                            id="id_list"
-                            name="idList"
-                            value={formData.idList}
-                            onChange={handleChange}
-                        />
-                    </FormItem>
-
                 </InputContainer>
                 <br />
                 {error && (
