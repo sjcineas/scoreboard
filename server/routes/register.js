@@ -3,7 +3,15 @@ const db = require('../config/db');
 const router = express.Router();
 
 router.post('/users', (req, res) => {
-    const { email, username, password } = req.body;
+    const { code, email, username, password } = req.body;
+    
+    // Hardcoded registration code
+    const HARDCODED_CODE = 'PC23';
+    
+    // Validate registration code
+    if (code !== HARDCODED_CODE) {
+        return res.status(403).json({ error: 'Invalid registration code' });
+    }
 
     const checkUserAndEmail = 'SELECT * FROM register WHERE email = ? OR username = ?';
     db.query(checkUserAndEmail, [email, username], (err, result) => {
