@@ -3,7 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import { Link } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
