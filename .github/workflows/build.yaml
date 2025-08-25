@@ -8,27 +8,54 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      NODE_BUILD_SUCCESS: false
 
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Node.js
+    # Try Node 16
+    - name: Set up Node.js 16
       uses: actions/setup-node@v3
       with:
-        node-version: '16' 
+        node-version: '16'
 
-    - name: Install React dependencies
-      run: npm install
+    - name: Install dependencies (Node 16)
+      run: |
+        if npm install && npm run build; then
+          echo "NODE_BUILD_SUCCESS=true" >> $GITHUB_ENV
+        fi
+      continue-on-error: true
 
-    - name: Build React project
-      run: npm run build
+    # Try Node 20 only if Node 16 didn't succeed
+    - name: Set up Node.js 20
+      if: env.NODE_BUILD_SUCCESS != 'true'
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
 
-    - name: Set up JDK
+    - name: Install dependencies (Node 20)
+      if: env.NODE_BUILD_SUCCESS != 'true'
+      run: |
+        if npm install && npm run build; then
+          echo "NODE_BUILD_SUCCESS=true" >> $GITHUB_ENV
+        fi
+
+    # Fail if neither Node version built successfully
+    - name: Fail if Node build failed
+      run: |
+        if [ "$NODE_BUILD_SUCCESS" != "true" ]; then
+          echo "Node build failed on both 16 and 20!"
+          exit 1
+        fi
+
+    # Java setup
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: '17' 
+        java-version: '17'
 
     - name: Build Java project
-      run: mvn compile 
+      run: mvn compile
       working-directory: ./testing/Testing
