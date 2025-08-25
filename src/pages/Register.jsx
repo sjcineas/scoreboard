@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import axios from 'axios';
 
@@ -92,6 +93,12 @@ const SubmitButton = styled.button`
   }
 `
 
+const ErrorMessage = styled.div`
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+`
+
 // const SignUpButton = styled.button`
 //     border-radius: 4px;
 //     height: 30px;
@@ -125,26 +132,50 @@ const ImageContainer = styled.div`
 
 const Register = () => {
     const [values, setValues] = useState({
+        code: '',
         email: '',
         username:'',
         password: ''
     })
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
     const handleChange = (event) => {
-        setValues({...values, [event.target.name]:event.target.value})
+        setValues({...values, [event.target.name]: event.target.value});
+        // Clear error when user starts typing
+        if (error) setError('');
     }
-    const handleSubmit = (event) => {
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const API = process.env.REACT_APP_API_URL;
-        axios.post(`${API}/register/users`, values)
-        .then(res => console.log("Registered Successfully!"))
-        .catch(err => {
-            if (err.response && err.response.status === 400) {
-                alert(err.response.data.error);
-            } else {
-                console.log("Registration Failed: ", err);
-            }
+        
+        try {
+            const response = await axios.post(
+                `${API}/register/users`,
+                values,
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
 
-        });
+            if (response.status === 201) {
+                // Redirect to login after successful registration
+                navigate('/login');
+            }
+        } catch (err) {
+            if (err.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                setError(err.response.data.error || 'Registration failed. Please try again.');
+            } else if (err.request) {
+                // The request was made but no response was received
+                setError('No response from server. Please check your connection.');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                setError('An error occurred. Please try again.');
+            }
+        }
     }
 
     return (
@@ -167,10 +198,40 @@ const Register = () => {
             </PageTitle> */}
             <InputContainer>
                 <NewForm onSubmit={handleSubmit}>
-                    <Inputs id='email_input' name='email' placeholder='Email' type='text' onChange={handleChange}></Inputs>
-                    <Inputs id ='username_input' name='username' placeholder='Username' type='text' onChange={handleChange}></Inputs>
-                    <Inputs id =''name='password_input' placeholder='Password' type='password' onChange={handleChange}></Inputs>
-                    <SubmitButton id ='register_button' >Register</SubmitButton>
+                    <Inputs 
+                        id='code_input' 
+                        name='code' 
+                        placeholder='Code' 
+                        type='text' 
+                        value={values.code}
+                        onChange={handleChange}
+                    />
+                    <Inputs 
+                        id='email_input' 
+                        name='email' 
+                        placeholder='Email' 
+                        type='email' 
+                        value={values.email}
+                        onChange={handleChange}
+                    />
+                    <Inputs 
+                        id='username_input' 
+                        name='username' 
+                        placeholder='Username' 
+                        type='text' 
+                        value={values.username}
+                        onChange={handleChange}
+                    />
+                    <Inputs 
+                        id='password_input' 
+                        name='password' 
+                        placeholder='Password' 
+                        type='password' 
+                        value={values.password}
+                        onChange={handleChange}
+                    />
+                    {error && <ErrorMessage id='error_message'>{error}</ErrorMessage>}
+                    <SubmitButton id='register_button' type='submit'>Register</SubmitButton>
                 </NewForm>
             </InputContainer>
         </RegisterContainer>
