@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
