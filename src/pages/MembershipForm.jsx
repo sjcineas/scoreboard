@@ -225,11 +225,21 @@ const MembershipForm = () => {
                         <h5 id='membership_type_label'>*Choose your type of membership</h5>
                     </ChooseMembership>
                     <SchoolStatusInputContainer>
-                        <CheckButtons value="Freshman" type="radio" id="freshman_label" name="schoolStatus" onChange={handleChange}/> Freshman
-                        <CheckButtons value="Sophomore" type="radio" id="sophomore_label" name="schoolStatus" onChange={handleChange} /> Sophomore
-                        <CheckButtons value="Junior" type="radio" id="junior_label" name="schoolStatus" onChange={handleChange} /> Junior
-                        <CheckButtons value="Senior" type="radio" id="senior_label" name="schoolStatus" onChange={handleChange}/> Senior
-                        <CheckButtons value="Graduate Student" type="radio" id="grad_student_label" name="schoolStatus" onChange={handleChange}/> Graduate Student
+                        <select
+                            id="school_status_dropdown"
+                            name="schoolStatus"
+                            value={formData.schoolStatus}
+                            onChange={handleChange}
+                            style={{ width: '100%', padding: '8px', borderRadius: '4px' }}
+                            required
+                        >
+                            <option value="">Select your status</option>
+                            <option id="freshman_label" value="Freshman">Freshman</option>
+                            <option id="sophomore_label" value="Sophomore">Sophomore</option>
+                            <option id="junior_label" value="Junior">Junior</option>
+                            <option id="senior_label" value="Senior">Senior</option>
+                            <option id="grad_student_label" value="Graduate Student">Graduate Student</option>
+                        </select>
                     </SchoolStatusInputContainer>
                     <br/>
                     <SubmitButton id='submit_form_label'type="submit">Submit</SubmitButton>
