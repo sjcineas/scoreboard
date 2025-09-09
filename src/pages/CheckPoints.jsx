@@ -152,7 +152,7 @@ const CheckPoints = () => {
                                 {`${item.firstName} ${item.lastName}`}
                             </StyledLink>
                         </NameBox>
-                        <IdBox>{item.pantherId}</IdBox>
+                        <IdBox>{"***" + String(item.pantherId).slice(-4)}</IdBox>
                         <PointsBox>{item.points}</PointsBox>     
                 </DetailedContentBox>
             )
