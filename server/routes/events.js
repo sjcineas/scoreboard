@@ -75,5 +75,15 @@ router.get('/pastEvents', (req, res) => {
     });
 });
 
+router.delete('/events/clear', (req, res) => {
+    const sql = 'DELETE FROM events';
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.status(200).json({ message: 'Events table cleared successfully!' });
+    });
+});
 
 module.exports = router;

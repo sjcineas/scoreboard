@@ -19,4 +19,15 @@ router.get('/StudentInfo/:pantherId', (req, res) =>{
     });
 });
 
+router.delete('/attendance/clear', (req, res) => {
+    const sql = 'DELETE FROM attendance';
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.status(200).json({ message: 'Attendance table cleared successfully!' });
+    });
+});
+
 module.exports = router;
