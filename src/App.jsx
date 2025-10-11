@@ -6,6 +6,7 @@ import MembershipForm from "./pages/MembershipForm"
 import StudentInfo from "./pages/StudentInfo"
 import AddEvent from "./pages/AddEvent";
 import StudentTable from './pages/StudentTable';
+import AdminClearTables from './pages/AdminClearTables';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/StudentInfo/:pantherId" element={<StudentInfo/>}/>
         <Route path="/addEvent" element={<AddEvent/>}/>
         <Route path="/MembershipData" element={<StudentTable />} />
+        <Route path="/admin-clear-tables" element={<AdminClearTables />} />
       </Routes>  
     </BrowserRouter>
   );

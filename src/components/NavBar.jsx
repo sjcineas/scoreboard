@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import FeedIcon from '@mui/icons-material/Feed';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 
 const Container = styled.div`
     height: 50px;
@@ -123,11 +124,18 @@ const NavBar = () => {
                     </IconLink>
                 </Icon>
                 {isLoggedIn && (
-                    <Icon>
-                        <IconLink to="/MembershipData">
-                            <BarChartIcon id="AnalyticsIcon" style={{ paddingLeft: '3%', paddingRight: '3%' }} />
-                        </IconLink>
-                    </Icon>
+                    <>
+                        <Icon>
+                            <IconLink to="/MembershipData">
+                                <BarChartIcon id="AnalyticsIcon" style={{ paddingLeft: '3%', paddingRight: '3%' }} />
+                            </IconLink>
+                        </Icon>
+                        <Icon>
+                            <IconLink to="/admin-clear-tables">
+                                <DeleteSweepIcon id="EraserIcon" style={{ paddingLeft: '3%', paddingRight: '3%' }} />
+                            </IconLink>
+                        </Icon>
+                    </>
                 )}
                 <Icon onClick={toggleDropdown}>
                     <AccountBoxIcon id="AccountBoxIcon" style={{ cursor: 'pointer' }} />
